@@ -5,7 +5,7 @@ module.exports = {
     When  the Create Proposal Log user submits the Proposal Log
     Then  an error should appear saying the field is required
     */
-    "Create Proposal Log test": function (client) {
+    "Create Proposal Log and Institutional Proposal Test": function (client) {
      let proposalNumber
 
     client

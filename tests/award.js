@@ -19,6 +19,12 @@ module.exports = {
     let transactionAdd
     
     client
+    .url('http://127.0.0.1:8081/kc-dev/')
+    .waitForElementVisible('body', 1000)
+    .assert.visible('input[type=text]')
+    .setValue('input[type=text]', 'quickstart')
+    .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+    .click('button[id=Rice-LoginButton]')
     .pause(1000)
     .url("http://127.0.0.1:8081/kc-dev/kc-krad/landingPage?viewId=Kc-Header-IframeView&href=http%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%2FawardHome.do%3FmethodToCall%3DdocHandler%26command%3Dinitiate%26docTypeName%3DAwardDocument%26returnLocation%3Dhttp%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%252Fkc-krad%252FlandingPage%253FviewId%253DKc-LandingPage-RedirectView&methodToCall=start")
     .frame(0)
@@ -38,7 +44,6 @@ module.exports = {
     .setValue('input[id="document.awardList[0].awardEffectiveDate"]', '04/01/2014')
     .setValue('input[id="document.awardList[0].awardAmountInfos[0].finalExpirationDate"]', '04/30/2017')
 
-    //.click('input[name="methodToCall.toggleTab.tabSponsorTemplate"]')
     .setValue('input[id="document.award.templateCode"]', '1')
     .click('input[name="methodToCall.applySponsorTemplate"]')
     .pause(3000)
@@ -184,19 +189,14 @@ module.exports = {
             .clearValue('input[id="newBudgetLineItems[0].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
-            //.click('input[name="methodToCall.toggleTab.tab20"]')
-            .click('input[name="methodToCall.showAllTabs"]')
-            //.waitForElementVisible('input[name="methodToCall.applyToLaterPeriods.line0.anchor30"]', 1000)
-            //.click('input[name="methodToCall.applyToLaterPeriods.line0.anchor30"]')
-
+        .click('input[name="methodToCall.showAllTabs"]')
+            
             .click('select[name="newBudgetLineItems[3].costElement"] option[value="420226"]')
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
             .click('input[name="methodToCall.showAllTabs"]')
-            //.waitForElementVisible('input[name="methodToCall.applyToLaterPeriods.line1.anchor58"]', 1000)
-            //.click('input[name="methodToCall.applyToLaterPeriods.line1.anchor58"]')
-            .pause(3000)
+        .pause(3000)
 
             .click('select[name="viewBudgetPeriod"] option[value="2"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -240,6 +240,10 @@ module.exports = {
             // adding personnel line items
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.personnel"]')
             .pause(3000)
+
+            .click('select[name="viewBudgetPeriod"] option[value="1"]')
+            .click('input[name="methodToCall.updateBudgetPeriodView"]')
+            .pause(1000)
             .click('input[name="methodToCall.showAllTabs"]')
 
             .waitForElementVisible('input[name="document.budget.budgetPersons[0].calculationBase"]', 1000)
@@ -253,40 +257,29 @@ module.exports = {
             .click('input[name="methodToCall.showAllTabs"]')
             .click('select[name="newBudgetPersonnelDetails.personSequenceNumber"] option[value="1"]')
             .click('select[name="newBudgetLineItems[0].costElement"] option[value="400250"]')
-            /*.execute(function() {
-                console.log("executing")
-                document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').style.visibility = 'visible'
-                document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').click()
-            })*/
-            /*.element('name', 'methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1', function(browser) {
-                console.log('object is ' + JSON.stringify(browser));
-                browser.document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').style.visibility = 'visible'
-                browser.document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').click()
-            })*/
-            //.waitForElementPresent('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]', 3000)
-            //.click('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]')
+            .click(".addButton")
             .pause(1000)
-            /*.click('input[name="methodToCall.showAllTabs"]')
-            .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', 1000)
-            .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]')
-            .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', '100.00')
+            .click('input[name="methodToCall.showAllTabs"]')
+            .pause(3000)
+            .waitForElementVisible('input[id="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', 1000)
+            .clearValue('input[id="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]')
+            .setValue('input[id="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', '100.00')
             .pause(1000)
             .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]', 1000)
             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]')
             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]', '100.00')
             .click('input[name="methodToCall.showAllTabs"]')
-
+            
+            // disable inflation
+            .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', 1000)
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]')
             .click('input[name="methodToCall.calculateSalary.line0.personnel0.anchor34"]')
             .click('input[name="methodToCall.showAllTabs"]')
             .click('input[name="methodToCall.applyToLaterPeriods.line0.anchor53"]')
 
             .click('select[name="newBudgetPersonnelDetails.personSequenceNumber"] option[value="2"]')
             .click('select[name="newBudgetLineItems[0].costElement"] option[value="400025"]')
-            .execute(function() {
-                document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').click()
-            })
-            //.click('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]')    
-            
+            .click(".addButton")
             .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentEffort"]', 1000)
             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentEffort"]')
             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentEffort"]', '100.00')
@@ -294,6 +287,11 @@ module.exports = {
             .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]', 1000)
             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]')
             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]', '100.00')
+            
+            // disable inflation
+            .click('input[name="methodToCall.showAllTabs"]')
+            .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', 1000)
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]')
             .click('input[name="methodToCall.calculateSalary.line2.personnel0.anchor94"]')
             .click('input[name="methodToCall.toggleTab.tab103"]')
             .click('input[name="methodToCall.applyToLaterPeriods.line2.anchor113"]')
@@ -302,28 +300,33 @@ module.exports = {
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.summaryTotals"]')
             .pause(1000)
             .clearValue('input[name="document.budget.budgetPeriods[0].totalFringeAmount"]')
-            .setValue('input[name="document.budget.budgetPeriods[0].totalFringeAmount"]', '85.11')
+            .setValue('input[name="document.budget.budgetPeriods[0].totalFringeAmount"]', '771.00')
             .clearValue('input[name="document.budget.budgetPeriods[1].totalFringeAmount"]')
-            .setValue('input[name="document.budget.budgetPeriods[1].totalFringeAmount"]', '90.00')
+            .setValue('input[name="document.budget.budgetPeriods[1].totalFringeAmount"]', '653.00')
             .clearValue('input[name="document.budget.budgetPeriods[2].totalFringeAmount"]')
-            .setValue('input[name="document.budget.budgetPeriods[2].totalFringeAmount"]', '90.00')
+            .setValue('input[name="document.budget.budgetPeriods[2].totalFringeAmount"]', '653.00')
             .clearValue('input[name="document.budget.budgetPeriods[3].totalFringeAmount"]')
-            .setValue('input[name="document.budget.budgetPeriods[3].totalFringeAmount"]', '5000.00')
+            .setValue('input[name="document.budget.budgetPeriods[3].totalFringeAmount"]', '480.25')
             
             .clearValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]', '1600.00')
+            .setValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]', '1000.00')
             .clearValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]', '1045.70')
+            .setValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]', '7000.00')
             .clearValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]', '479.72')
+            .setValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]', '7000.00')
             .clearValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '7340.11')
+            .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '13000.00')
             .click('input[name="methodToCall.save"]')
             .pause(1000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.budgetActions"]')
             .click('input[name="methodToCall.route"]')
             .pause(1000)
-            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + budgetDocumentNumber)*/
+            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + budgetDocumentNumber)
+        .getText('#awardBudgetStatus', function(result) {
+            budgetStatus = result.value
+            console.log("Budget status is " + budgetStatus)
+            assert.equal(budgetStatus, "Submitted")
+        })
 
         })
       done();

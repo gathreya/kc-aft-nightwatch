@@ -8,11 +8,11 @@
 
   "selenium" : {
     "start_process" : true,
-    "server_path" : "/Users/gathreya/nightwatchTests/bin/selenium-server-standalone-3.4.0.jar",
-    "log_path" : "/Users/gathreya/nightwatchTests/bin/log",
+    "server_path" : "/Users/gathreya/kc-aft-nightwatch/bin/selenium-server-standalone-3.4.0.jar",
+    "log_path" : "/Users/gathreya/kc-aft-nightwatch/bin/log",
     "port" : 4444,
     "cli_args" : {
-      "webdriver.chrome.driver" : "/Users/gathreya/nightwatchTests/bin/chromedriver",
+      "webdriver.chrome.driver" : "/Users/gathreya/kc-aft-nightwatch/bin/chromedriver",
       "webdriver.gecko.driver" : "",
       "webdriver.edge.driver" : ""
     }

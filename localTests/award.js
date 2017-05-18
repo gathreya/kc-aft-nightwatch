@@ -1,27 +1,29 @@
 module.exports = {
-  '@disabled': true,
+  '@disabled': false,
   // '@tags': ['authorization', 'admin'],
+  before: function (browser) {
+    const signInPage = browser.page.signIn()
+    signInPage.navigate().authenticate()
+  },
 
-    "Award test": function (client) {
+  after: function (browser) {
+    browser.signout().endSession()
+  },
+
+    "Award and Award Budget test": function (client) {
     let documentNumber
     let awardIdAccount
     let awardNumber
     let hierarchyNumber
     let tabNumber
     let transactionAdd
-
+    
     client
-    .url('http://127.0.0.1:8081/kc-dev/')
-    .waitForElementVisible('body', 1000)
-    .assert.title('Kuali ::')
-    .assert.visible('input[type=text]')
-    .setValue('input[type=text]', 'quickstart')
-    .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-    .click('button[id=Rice-LoginButton]')
     .pause(1000)
     .url("http://127.0.0.1:8081/kc-dev/kc-krad/landingPage?viewId=Kc-Header-IframeView&href=http%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%2FawardHome.do%3FmethodToCall%3DdocHandler%26command%3Dinitiate%26docTypeName%3DAwardDocument%26returnLocation%3Dhttp%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%252Fkc-krad%252FlandingPage%253FviewId%253DKc-LandingPage-RedirectView&methodToCall=start")
     .frame(0)
     .waitForElementVisible('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]', 1000)
+    .click('input[name="methodToCall.showAllTabs"]')
     .click('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]')
     .click('select[id="document.awardList[0].statusCode"] option[value="1"]')
     .click('select[id="document.awardList[0].activityTypeCode"] option[value="1"]')
@@ -36,10 +38,11 @@ module.exports = {
     .setValue('input[id="document.awardList[0].awardEffectiveDate"]', '04/01/2014')
     .setValue('input[id="document.awardList[0].awardAmountInfos[0].finalExpirationDate"]', '04/30/2017')
 
-    .click('input[name="methodToCall.toggleTab.tabSponsorTemplate"]')
+    //.click('input[name="methodToCall.toggleTab.tabSponsorTemplate"]')
     .setValue('input[id="document.award.templateCode"]', '1')
     .click('input[name="methodToCall.applySponsorTemplate"]')
-    .pause(1000)
+    .pause(3000)
+    .waitForElementVisible('input[name="methodToCall.processAnswer.button0"]', 1000)
     .click('input[name="methodToCall.processAnswer.button0"]')
 
     // contacts tab
@@ -48,6 +51,7 @@ module.exports = {
     .pause(1000)
     .getText('#docIdAndStatus', function(result) {
         documentNumber = result.value.split(':')[0]
+        budgetDocumentNumber = Number(documentNumber) + 2
     })
     .click('input[name="methodToCall.toggleTab.tabKeyPersonnelandCreditSplit"]')
     .setValue('input[type="text"][name="projectPersonnelBean.newProjectPerson.person.fullName"]', 'aemcafee')
@@ -117,7 +121,9 @@ module.exports = {
     .pause(1000)
     .click('input[name="methodToCall.blanketApprove"]')
     .pause(1000)
-    .perform(function(client, done) {      
+    .perform(function(client, done) {
+      // potentially other async stuff going on
+      // on finished, call the done callback
       client
       .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + documentNumber)
         .frame(0)
@@ -130,7 +136,7 @@ module.exports = {
             transactionAdd = "methodToCall.addTransaction.anchorTransactions" + awardNumber + hierarchyNumber
         })
         .perform(function(client, done) {
-             client
+            client
             .setValue('input[id="awardHierarchyNodeItems[1].currentFundEffectiveDate"]', '04/01/2014')
             .setValue('input[id="awardHierarchyNodeItems[1].obligationExpirationDate"]', '04/30/2017')
             // Adding transactions
@@ -247,24 +253,13 @@ module.exports = {
             .click('input[name="methodToCall.showAllTabs"]')
             .click('select[name="newBudgetPersonnelDetails.personSequenceNumber"] option[value="1"]')
             .click('select[name="newBudgetLineItems[0].costElement"] option[value="400250"]')
-            /*.execute(function() {
-                console.log("executing")
-                document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').style.visibility = 'visible'
-                document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').click()
-            })*/
-            .element('name', 'methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1', function(browser) {
-                console.log('object is ' + JSON.stringify(browser));
-                browser.document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').style.visibility = 'visible'
-                browser.document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').click()
-            })
-            //.waitForElementPresent('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]', 3000)
-            //.click('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]')
+            .click(".addButton")
             .pause(1000)
-            .click('input[name="methodToCall.save"]')
-            /*.click('input[name="methodToCall.showAllTabs"]')
-            .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', 1000)
-            .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]')
-            .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', '100.00')
+            .click('input[name="methodToCall.showAllTabs"]')
+            .pause(3000)
+            .waitForElementVisible('input[id="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', 1000)
+            .clearValue('input[id="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]')
+            .setValue('input[id="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentEffort"]', '100.00')
             .pause(1000)
             .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]', 1000)
             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]')
@@ -277,10 +272,7 @@ module.exports = {
 
             .click('select[name="newBudgetPersonnelDetails.personSequenceNumber"] option[value="2"]')
             .click('select[name="newBudgetLineItems[0].costElement"] option[value="400025"]')
-            .execute(function() {
-                document.querySelector('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]').click()
-            })
-            //.click('input[name="methodToCall.addPersonnelLineItem.budgetCategoryTypeCodeP.catTypeIndex0.anchorPersonnelDetailPeriod1"]')    
+            .click(".addButton")
             
             .waitForElementVisible('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentEffort"]', 1000)
             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentEffort"]')
@@ -308,23 +300,21 @@ module.exports = {
             .clearValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]')
             .setValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]', '1600.00')
             .clearValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]', '1045.70')
+            .setValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]', '1225.4')
             .clearValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]', '479.72')
+            .setValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]', '844.52')
             .clearValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '7340.11')
+            .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '7895.55')
             .click('input[name="methodToCall.save"]')
             .pause(1000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.budgetActions"]')
             .click('input[name="methodToCall.route"]')
             .pause(1000)
-            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + budgetDocumentNumber)*/
-
+            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + budgetDocumentNumber)
 
         })
       done();
     })
-    
     .end();
     }
 };
