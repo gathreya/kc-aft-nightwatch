@@ -24,13 +24,15 @@ module.exports = {
      let proposalDocumentStatus
      client
 
-    .url(`${client.globals.baseUrl}/kc-dev/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView")
-    .frame(0)
-    .setValue('input[name="document.documentHeader.documentDescription"]', 'Proposal Log AFT')
+    .url(`${client.globals.baseUrl}/kc-dev/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+    //.frame(0)
+    .pause(1000)
+    .waitForElementVisible('input[id="document.documentHeader.documentDescription"]', 3000)
+    .setValue('input[id="document.documentHeader.documentDescription"]', 'Proposal Log AFT')
     .click('select[id="document.newMaintainableObject.proposalLogTypeCode"] option[value="1"]')
     .click('select[id="document.newMaintainableObject.proposalTypeCode"] option[value="1"]')
-    .setValue('input[name="document.newMaintainableObject.title"]', 'Proposal Log AFT')
-    .setValue('input[name="document.newMaintainableObject.leadUnit"]', '000001')
+    .setValue('input[id="document.newMaintainableObject.title"]', 'Proposal Log AFT')
+    .setValue('input[id="document.newMaintainableObject.leadUnit"]', '000001')
     .click('input[name="methodToCall.blanketApprove"]')
     .waitForElementVisible('div[class="kul-error"]', 1000)
 
@@ -50,14 +52,14 @@ module.exports = {
     .perform(function(client, done) {      
         client
 
-        .url("http://127.0.0.1:8081/kc-dev/institutionalProposalHome.do?proposalNumber=" + proposalNumber +
-        "&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm")
+        .url(`${client.globals.baseUrl}/kc-dev/institutionalProposalHome.do?proposalNumber=${proposalNumber}&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm`)
         .pause(1000)
         .click('input[name="methodToCall.showAllTabs"]')
         .setValue('input[name="document.documentHeader.documentDescription"]', 'AFT Institutional Proposal')
         .setValue('input[name="document.institutionalProposalList[0].sponsorCode"]', '000340')
-        .click('select[name="document.institutionalProposalList[0].activityTypeCode"] option[value="1"]')
+        .click('select[id="document.institutionalProposalList[0].activityTypeCode"] option[value="1"]')
         .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.contacts"]')
+        .pause(1000)
         .click('input[name="methodToCall.showAllTabs"]')
 
         .clearValue('input[id="document.institutionalProposalList[0].personsSelectedForCreditSplit[0].creditSplit[0].credit"]')
@@ -87,7 +89,6 @@ module.exports = {
         .click('input[name="methodToCall.showAllTabs"]')
         // cost share values
         .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.projectPeriod"]', '1')
-        .click('select[name="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.costShareTypeCode"] option[value="25"]')
         .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.costSharePercentage"]', '100.00')
         .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.sourceAccount"]', '12345')
         .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.amount"]', '220.96')
@@ -107,7 +108,8 @@ module.exports = {
         .click('input[name="methodToCall.route"]')
         .perform(function(client, done) { 
             client     
-            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + proposalDocumentNumber)
+            .pause(3000)
+            .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${proposalDocumentNumber}`)
             .getText('table', function(result) {
                 proposalDocumentStatus = result.value.split(/\s+/g)[5]
                 assert.equal(proposalDocumentStatus, 'FINAL')

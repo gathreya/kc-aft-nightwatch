@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 module.exports = {
-   '@disabled': true,
+   '@disabled': false,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
     const signInPage = browser.page.signIn()
@@ -24,8 +24,7 @@ module.exports = {
     let negotiationDocumentStatus
 
     client
-    .url('http://127.0.0.1:8081/kc-dev/kc-krad/landingPage?viewId=Kc-Header-IframeView&href=http%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%2FnegotiationNegotiation.do%3FmethodToCall%3DdocHandler%26command%3Dinitiate%26docTypeName%3DNegotiationDocument&methodToCall=start')
-    .frame(0)
+    .url(`${client.globals.baseUrl}/kc-dev/negotiationNegotiation.do?methodToCall=docHandler&amp;command=initiate&amp;docTypeName=NegotiationDocument`)
     .click('input[name="methodToCall.showAllTabs"]')
     .setValue('input[name="document.documentHeader.documentDescription"]', 'Negotiation AFT')
     .click('select[name="document.negotiationList[0].negotiationStatusId"] option[value="2"]')
@@ -41,7 +40,7 @@ module.exports = {
     .click('input[name="methodToCall.save"]')
     .perform(function(client, done) { 
         client     
-        .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + negotiationDocumentNumber)
+        .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
         .getText('table', function(result) {
             negotiationDocumentStatus = result.value.split(/\s+/g)[5]
             assert.equal(negotiationDocumentStatus, 'FINAL')

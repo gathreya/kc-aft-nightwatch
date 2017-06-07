@@ -156,7 +156,6 @@ module.exports = {
             .setValue('input[name="newBudgetVersionName"]', 'Award Budget AFT')
             .click('input[name="methodToCall.addBudgetVersion"]')
             .pause(1000)
-            // hack because open button does not open in OSX for some reason
             .sendKeys('input[name="methodToCall.openBudgetVersion.line0"]', client.Keys.ENTER)
             .waitForElementVisible('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.parameters"]', 3000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.parameters"]')
