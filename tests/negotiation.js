@@ -22,7 +22,7 @@ module.exports = {
     let negotiationDocumentStatus
 
     client
-    .url(`${client.globals.baseUrl}/kc-dev/negotiationNegotiation.do?methodToCall=docHandler&amp;command=initiate&amp;docTypeName=NegotiationDocument`)
+    .url(`${client.globals.baseUrl}/kc-dev/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
     .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
     .setValue('input[type=text]', 'quickstart')
     .click('button[id=Rice-LoginButton]')
