@@ -1,11 +1,9 @@
 const assert = require('assert');
 
 module.exports = {
-   '@disabled': true,
+   '@disabled': false,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
-    const signInPage = browser.page.signIn()
-    signInPage.navigate().authenticate()
   },
 
   after: function (browser) {
@@ -25,6 +23,10 @@ module.exports = {
 
     client
     .url(`${client.globals.baseUrl}/kc-dev/negotiationNegotiation.do?methodToCall=docHandler&amp;command=initiate&amp;docTypeName=NegotiationDocument`)
+    .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+    .setValue('input[type=text]', 'quickstart')
+    .click('button[id=Rice-LoginButton]')
+
     .click('input[name="methodToCall.showAllTabs"]')
     .setValue('input[name="document.documentHeader.documentDescription"]', 'Negotiation AFT')
     .click('select[name="document.negotiationList[0].negotiationStatusId"] option[value="2"]')
@@ -41,6 +43,10 @@ module.exports = {
     .perform(function(client, done) { 
         client     
         .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
+        .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+        .setValue('input[type=text]', 'quickstart')
+        .click('button[id=Rice-LoginButton]')
+
         .getText('table', function(result) {
             negotiationDocumentStatus = result.value.split(/\s+/g)[5]
             assert.equal(negotiationDocumentStatus, 'FINAL')

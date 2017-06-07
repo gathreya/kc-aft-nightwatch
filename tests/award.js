@@ -1,9 +1,7 @@
 module.exports = {
-  '@disabled': true,
+  '@disabled': false,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
-    const signInPage = browser.page.signIn()
-    signInPage.navigate().authenticate()
   },
 
   after: function (browser) {
@@ -21,6 +19,10 @@ module.exports = {
     client
     .pause(1000)
     .url(`${client.globals.baseUrl}/kc-dev/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+    .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+    .setValue('input[type=text]', 'quickstart')
+    .click('button[id=Rice-LoginButton]')
+
     .frame(0)
     .waitForElementVisible('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]', 3000)
     .click('input[name="methodToCall.showAllTabs"]')
@@ -124,7 +126,11 @@ module.exports = {
       // potentially other async stuff going on
       // on finished, call the done callback
       client
-      .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+        .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+        .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+        .setValue('input[type=text]', 'quickstart')
+        .click('button[id=Rice-LoginButton]')
+
         .frame(0)
         .click('input[name="methodToCall.timeAndMoney"]')
         .getText('#awardIdAccount', function(result) {
@@ -180,14 +186,14 @@ module.exports = {
             .clearValue('input[id="newBudgetLineItems[0].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
-        .click('input[name="methodToCall.showAllTabs"]')
+            .click('input[name="methodToCall.showAllTabs"]')
             
             .click('select[name="newBudgetLineItems[3].costElement"] option[value="420226"]')
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
             .click('input[name="methodToCall.showAllTabs"]')
-        .pause(3000)
+            .pause(3000)
 
             .click('select[name="viewBudgetPeriod"] option[value="2"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -313,7 +319,11 @@ module.exports = {
             .click('input[name="methodToCall.route"]')
             .pause(1000)
             .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${budgetDocumentNumber}`)
-        .getText('#awardBudgetStatus', function(result) {
+            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+            .setValue('input[type=text]', 'quickstart')
+            .click('button[id=Rice-LoginButton]')
+
+            .getText('#awardBudgetStatus', function(result) {
             budgetStatus = result.value
             console.log("Budget status is " + budgetStatus)
             assert.equal(budgetStatus, "Submitted")

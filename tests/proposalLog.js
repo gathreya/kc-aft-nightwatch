@@ -4,8 +4,6 @@ module.exports = {
    '@disabled': false,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
-    //const signInPage = browser.page.signIn()
-    //signInPage.navigate().authenticate()
   },
 
   after: function (browser) {
