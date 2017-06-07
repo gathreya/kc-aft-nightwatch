@@ -1,5 +1,5 @@
 module.exports = {
-  '@disabled': false,
+  '@disabled': true,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
     const signInPage = browser.page.signIn()

@@ -4,8 +4,8 @@ module.exports = {
    '@disabled': false,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
-    const signInPage = browser.page.signIn()
-    signInPage.navigate().authenticate()
+    //const signInPage = browser.page.signIn()
+    //signInPage.navigate().authenticate()
   },
 
   after: function (browser) {
@@ -25,6 +25,10 @@ module.exports = {
      client
 
     .url(`${client.globals.baseUrl}/kc-dev/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+     .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+      .setValue('input[type=text]', 'quickstart')
+      .click('button[id=Rice-LoginButton]')
+
     //.frame(0)
     .pause(1000)
     .waitForElementVisible('input[id="document.documentHeader.documentDescription"]', 3000)
