@@ -10,7 +10,7 @@ module.exports = {
     browser.signout().endSession()
   },
 
-    "Award and Award Budget test": function (client) {
+    "Local Award and Award Budget test": function (client) {
     let documentNumber
     let awardIdAccount
     let awardNumber

@@ -21,7 +21,7 @@ module.exports = {
   nightwatch: {
     baseUrl: getenv.string(
       'NIGHTWATCH_BASE_URL',
-      'http://127.0.0.1:8081'
+      'https://res-tst1.kuali.co'
     ),
     debug: getenv.bool('NIGHTWATCH_DEBUG', false),
     local: getenv.bool('NIGHTWATCH_LOCAL', false),

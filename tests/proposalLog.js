@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 module.exports = {
-   '@disabled': true,
+   '@disabled': false,
   // '@tags': ['authorization', 'admin'],
   before: function (browser) {
     const signInPage = browser.page.signIn()
@@ -24,7 +24,7 @@ module.exports = {
      let proposalDocumentStatus
      client
 
-    .url("http://127.0.0.1:8081/kc-dev/kc-krad/landingPage?viewId=Kc-Header-IframeView&href=http%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%2Fkr%2Fmaintenance.do%3FmethodToCall%3Dstart%26businessObjectClassName%3Dorg.kuali.kra.institutionalproposal.proposallog.ProposalLog%26returnLocation%3Dhttp%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%252Fkc-krad%252FlandingPage%253FviewId%253DKc-LandingPage-RedirectView&methodToCall=start")
+    .url(`${client.globals.baseUrl}/kc-dev/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView")
     .frame(0)
     .setValue('input[name="document.documentHeader.documentDescription"]', 'Proposal Log AFT')
     .click('select[id="document.newMaintainableObject.proposalLogTypeCode"] option[value="1"]')

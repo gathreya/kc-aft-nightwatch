@@ -19,16 +19,10 @@ module.exports = {
     let transactionAdd
     
     client
-    .url('http://127.0.0.1:8081/kc-dev/')
-    .waitForElementVisible('body', 1000)
-    .assert.visible('input[type=text]')
-    .setValue('input[type=text]', 'quickstart')
-    .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-    .click('button[id=Rice-LoginButton]')
     .pause(1000)
-    .url("http://127.0.0.1:8081/kc-dev/kc-krad/landingPage?viewId=Kc-Header-IframeView&href=http%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%2FawardHome.do%3FmethodToCall%3DdocHandler%26command%3Dinitiate%26docTypeName%3DAwardDocument%26returnLocation%3Dhttp%3A%2F%2F127.0.0.1%3A8081%2Fkc-dev%252Fkc-krad%252FlandingPage%253FviewId%253DKc-LandingPage-RedirectView&methodToCall=start")
+    .url(`${client.globals.baseUrl}/kc-dev/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
     .frame(0)
-    .waitForElementVisible('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]', 1000)
+    .waitForElementVisible('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]', 3000)
     .click('input[name="methodToCall.showAllTabs"]')
     .click('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]')
     .click('select[id="document.awardList[0].statusCode"] option[value="1"]')
@@ -130,7 +124,7 @@ module.exports = {
       // potentially other async stuff going on
       // on finished, call the done callback
       client
-      .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + documentNumber)
+      .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
         .frame(0)
         .click('input[name="methodToCall.timeAndMoney"]')
         .getText('#awardIdAccount', function(result) {
@@ -156,16 +150,14 @@ module.exports = {
             .setValue('input[id="transactionBean.newPendingTransaction.anticipatedAmount"]', '100000.00')
             .click(`input[name="${transactionAdd}"]`)
             .click('input[name="methodToCall.blanketApprove"]')
-
-            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + documentNumber)
+            .url(`https://res-tst1.kuali.co/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
             .pause(1000)
             .click('input[name="methodToCall.headerTab.headerDispatch.reload.navigateTo.budgets"]')
             .setValue('input[name="newBudgetVersionName"]', 'Award Budget AFT')
             .click('input[name="methodToCall.addBudgetVersion"]')
             .pause(1000)
             // hack because open button does not open in OSX for some reason
-            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + budgetDocumentNumber)
-            //.click('input[name="methodToCall.openBudgetVersion.line0"]')
+            .sendKeys('input[name="methodToCall.openBudgetVersion.line0"]', client.Keys.ENTER)
             .waitForElementVisible('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.parameters"]', 3000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.parameters"]')
             .pause(1000)
@@ -273,7 +265,7 @@ module.exports = {
             // disable inflation
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', 1000)
             .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]')
-            .click('input[name="methodToCall.calculateSalary.line0.personnel0.anchor34"]')
+            .click('input[name^="methodToCall.calculateSalary.line0"]')
             .click('input[name="methodToCall.showAllTabs"]')
             .click('input[name="methodToCall.applyToLaterPeriods.line0.anchor53"]')
 
@@ -292,9 +284,9 @@ module.exports = {
             .click('input[name="methodToCall.showAllTabs"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', 1000)
             .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]')
-            .click('input[name="methodToCall.calculateSalary.line2.personnel0.anchor94"]')
+            .click('input[name^="methodToCall.calculateSalary.line2"]')
             .click('input[name="methodToCall.toggleTab.tab103"]')
-            .click('input[name="methodToCall.applyToLaterPeriods.line2.anchor113"]')
+            .click('input[name^="methodToCall.applyToLaterPeriods.line2"]')
 
             // adjusting indirect and fringe since fringe for personnel is complicated
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.summaryTotals"]')
@@ -321,7 +313,7 @@ module.exports = {
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.budgetActions"]')
             .click('input[name="methodToCall.route"]')
             .pause(1000)
-            .url("http://127.0.0.1:8081/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=" + budgetDocumentNumber)
+            .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${budgetDocumentNumber}`)
         .getText('#awardBudgetStatus', function(result) {
             budgetStatus = result.value
             console.log("Budget status is " + budgetStatus)
