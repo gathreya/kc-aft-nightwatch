@@ -55,9 +55,12 @@ module.exports = {
         client
 
         .url(`${client.globals.baseUrl}/kc-dev/institutionalProposalHome.do?proposalNumber=${proposalNumber}&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm`)
-        .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-        .setValue('input[type=text]', 'quickstart')
-        .click('button[id=Rice-LoginButton]')
+        .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+            if(result.status != -1) {
+                client.setValue('input[type=text]', 'quickstart')
+                client.click('button[id=Rice-LoginButton]')        
+            }
+        })
 
         .pause(1000)
         .click('input[name="methodToCall.showAllTabs"]')
@@ -116,9 +119,12 @@ module.exports = {
             client     
             .pause(3000)
             .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${proposalDocumentNumber}`)
-            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-            .setValue('input[type=text]', 'quickstart')
-            .click('button[id=Rice-LoginButton]')
+            .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+                if(result.status != -1) {
+                    client.setValue('input[type=text]', 'quickstart')
+                    client.click('button[id=Rice-LoginButton]')        
+                }
+            })
 
             .getText('table', function(result) {
                 proposalDocumentStatus = result.value.split(/\s+/g)[5]

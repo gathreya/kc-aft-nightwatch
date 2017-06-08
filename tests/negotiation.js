@@ -23,9 +23,12 @@ module.exports = {
 
     client
     .url(`${client.globals.baseUrl}/kc-dev/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
-    .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-    .setValue('input[type=text]', 'quickstart')
-    .click('button[id=Rice-LoginButton]')
+    .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+      if(result.status != -1) {
+        client.setValue('input[type=text]', 'quickstart')
+        client.click('button[id=Rice-LoginButton]')        
+      }
+    })
 
     .click('input[name="methodToCall.showAllTabs"]')
     .setValue('input[name="document.documentHeader.documentDescription"]', 'Negotiation AFT')
@@ -43,9 +46,12 @@ module.exports = {
     .perform(function(client, done) { 
         client     
         .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
-        .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-        .setValue('input[type=text]', 'quickstart')
-        .click('button[id=Rice-LoginButton]')
+        .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+            if(result.status != -1) {
+                client.setValue('input[type=text]', 'quickstart')
+                client.click('button[id=Rice-LoginButton]')        
+            }
+        })
 
         .getText('table', function(result) {
             negotiationDocumentStatus = result.value.split(/\s+/g)[5]

@@ -129,9 +129,12 @@ module.exports = {
       // on finished, call the done callback
       client
         .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-        .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-        .setValue('input[type=text]', 'quickstart')
-        .click('button[id=Rice-LoginButton]')
+        .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+            if(result.status != -1) {
+                client.setValue('input[type=text]', 'quickstart')
+                client.click('button[id=Rice-LoginButton]')        
+            }
+        })
 
         .frame(0)
         .click('input[name="methodToCall.timeAndMoney"]')
@@ -190,7 +193,7 @@ module.exports = {
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             .click('input[name="methodToCall.showAllTabs"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420226"]')
+            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
@@ -205,7 +208,7 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420226"]')
+            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
@@ -218,7 +221,7 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420226"]')
+            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
@@ -231,7 +234,7 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420226"]')
+            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
@@ -272,6 +275,14 @@ module.exports = {
             // disable inflation
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', 1000)
             .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]')
+            // disable la rates
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[2].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[3].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[4].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[5].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[0].applyRateFlag"]')
+
             .click('input[name^="methodToCall.calculateSalary.line0"]')
             .click('input[name="methodToCall.showAllTabs"]')
             .click('input[name="methodToCall.applyToLaterPeriods.line0.anchor53"]')
@@ -291,6 +302,13 @@ module.exports = {
             .click('input[name="methodToCall.showAllTabs"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', 1000)
             .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]')
+            // disable la rates
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[2].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[3].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[4].applyRateFlag"]')
+            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[0].applyRateFlag"]')
+
             .click('input[name^="methodToCall.calculateSalary.line2"]')
             .click('input[name="methodToCall.toggleTab.tab103"]')
             .click('input[name^="methodToCall.applyToLaterPeriods.line2"]')
@@ -308,26 +326,29 @@ module.exports = {
             .setValue('input[name="document.budget.budgetPeriods[3].totalFringeAmount"]', '480.25')
             
             .clearValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]', '1000.00')
+            .setValue('input[name="document.budget.budgetPeriods[0].totalIndirectCost"]', '4229.00')
             .clearValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]', '7000.00')
+            .setValue('input[name="document.budget.budgetPeriods[1].totalIndirectCost"]', '4347.00')
             .clearValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]', '7000.00')
+            .setValue('input[name="document.budget.budgetPeriods[2].totalIndirectCost"]', '4347.00')
             .clearValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]')
-            .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '13000.00')
+            .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '13686.41')
             .click('input[name="methodToCall.save"]')
             .pause(1000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.budgetActions"]')
             .click('input[name="methodToCall.route"]')
             .pause(1000)
             .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${budgetDocumentNumber}`)
-            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-            .setValue('input[type=text]', 'quickstart')
-            .click('button[id=Rice-LoginButton]')
+            .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+                if(result.status != -1) {
+                    client.setValue('input[type=text]', 'quickstart')
+                    client.click('button[id=Rice-LoginButton]')        
+                }
+            })
 
             .getText('#awardBudgetStatus', function(result) {
             budgetStatus = result.value
-            console.log("Budget status is " + budgetStatus)
+            console.log("Budget status is " + JSON.stringify(budgetStatus))
             assert.equal(budgetStatus, "Submitted")
         })
 
