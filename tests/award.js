@@ -298,7 +298,7 @@ module.exports = {
 
             .click('input[name^="methodToCall.calculateSalary.line0"]')
             .click('input[name="methodToCall.showAllTabs"]')
-            .click('input[name="methodToCall.applyToLaterPeriods.line0.anchor53"]')
+            .click('input[name^="methodToCall.applyToLaterPeriods.line0"]')
 
             .click('select[name="newBudgetPersonnelDetails.personSequenceNumber"] option[value="2"]')
             .click('select[name="newBudgetLineItems[0].costElement"] option[value="400025"]')
