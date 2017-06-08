@@ -46,7 +46,7 @@ module.exports = {
     .perform(function(client, done) { 
         client     
         .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
-        .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+        .element('css selector', '[id=Rice-LoginButton]', function(result) {
             if(result.status != -1) {
                 client.setValue('input[type=text]', 'quickstart')
                 client.click('button[id=Rice-LoginButton]')        
