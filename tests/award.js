@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 module.exports = {
   '@disabled': false,
   // '@tags': ['authorization', 'admin'],
