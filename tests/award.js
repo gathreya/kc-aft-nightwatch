@@ -198,6 +198,7 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
             .click('input[name="methodToCall.showAllTabs"]')
+            .sendKeys('input[name="document.budget.budgetPeriods[0].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
             .pause(3000)
 
             .click('select[name="viewBudgetPeriod"] option[value="2"]')
@@ -212,6 +213,9 @@ module.exports = {
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
+            .click('input[name="methodToCall.showAllTabs"]')
+            .sendKeys('input[name="document.budget.budgetPeriods[1].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
+
 
             .click('select[name="viewBudgetPeriod"] option[value="3"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -225,6 +229,9 @@ module.exports = {
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
+            .click('input[name="methodToCall.showAllTabs"]')
+            .sendKeys('input[name="document.budget.budgetPeriods[2].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
+
 
             .click('select[name="viewBudgetPeriod"] option[value="4"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -238,6 +245,9 @@ module.exports = {
             .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
             .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
+            .click('input[name="methodToCall.showAllTabs"]')
+            .sendKeys('input[name="document.budget.budgetPeriods[3].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
+
 
             // adding personnel line items
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.personnel"]')
@@ -274,31 +284,25 @@ module.exports = {
             
             // disable inflation
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', 1000)
-            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]')
+            .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', client.Keys.SPACE)
             // disable la rates
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', 1000)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]')
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', client.Keys.SPACE)
 
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[2].applyRateFlag"]', 1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[2].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[2].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[3].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[3].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[3].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[4].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[4].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[4].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[5].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[5].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[5].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[0].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[0].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[0].applyRateFlag"]')
 
             .click('input[name^="methodToCall.calculateSalary.line0"]')
             .click('input[name="methodToCall.showAllTabs"]')
@@ -318,29 +322,24 @@ module.exports = {
             // disable inflation
             .click('input[name="methodToCall.showAllTabs"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', 1000)
-            .click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]')
+            .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', client.Keys.SPACE)
+
             // disable la rates
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[2].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[2].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[2].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[3].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[3].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[3].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[4].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[4].applyRateFlag"]', client.Keys.SPACE)
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[4].applyRateFlag"]')
             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[0].applyRateFlag"]', 1000)
             .pause(1000)
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[0].applyRateFlag"]', client.Keys.SPACE)
-
-            //.click('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[0].applyRateFlag"]')
 
             .click('input[name^="methodToCall.calculateSalary.line2"]')
             .click('input[name="methodToCall.toggleTab.tab103"]')
