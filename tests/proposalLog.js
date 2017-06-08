@@ -55,7 +55,7 @@ module.exports = {
         client
 
         .url(`${client.globals.baseUrl}/kc-dev/institutionalProposalHome.do?proposalNumber=${proposalNumber}&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm`)
-        .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+        .element('css selector', '[id=Rice-LoginButton]', function(result) {
             if(result.status != -1) {
                 client.setValue('input[type=text]', 'quickstart')
                 client.click('button[id=Rice-LoginButton]')        
@@ -119,7 +119,7 @@ module.exports = {
             client     
             .pause(3000)
             .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${proposalDocumentNumber}`)
-            .element('css selector', '[id=Rice-LoginButton]', function(result, client) {
+            .element('css selector', '[id=Rice-LoginButton]', function(result) {
                 if(result.status != -1) {
                     client.setValue('input[type=text]', 'quickstart')
                     client.click('button[id=Rice-LoginButton]')        
