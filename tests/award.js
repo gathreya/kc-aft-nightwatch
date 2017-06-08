@@ -193,13 +193,11 @@ module.exports = {
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             .click('input[name="methodToCall.showAllTabs"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
-            .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
-            .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
-            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
-            .click('input[name="methodToCall.showAllTabs"]')
-            .sendKeys('input[name="document.budget.budgetPeriods[0].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
-            .pause(3000)
+            .click('select[name="newBudgetLineItems[2].costElement"] option[value="420333"]')
+            .clearValue('input[id="newBudgetLineItems[2].lineItemCost"]')
+            .setValue('input[id="newBudgetLineItems[2].lineItemCost"]', '5000.00')
+            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeS.catTypeIndex2.anchorParticipantSupport"]')
+            
 
             .click('select[name="viewBudgetPeriod"] option[value="2"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -209,13 +207,11 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
-            .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
-            .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
-            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
-            .click('input[name="methodToCall.showAllTabs"]')
-            .sendKeys('input[name="document.budget.budgetPeriods[1].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
-
+            .click('select[name="newBudgetLineItems[2].costElement"] option[value="420333"]')
+            .clearValue('input[id="newBudgetLineItems[2].lineItemCost"]')
+            .setValue('input[id="newBudgetLineItems[2].lineItemCost"]', '5000.00')
+            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeS.catTypeIndex2.anchorParticipantSupport"]')
+            
 
             .click('select[name="viewBudgetPeriod"] option[value="3"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -225,13 +221,11 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
-            .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
-            .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
-            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
-            .click('input[name="methodToCall.showAllTabs"]')
-            .sendKeys('input[name="document.budget.budgetPeriods[2].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
-
+            .click('select[name="newBudgetLineItems[2].costElement"] option[value="420333"]')
+            .clearValue('input[id="newBudgetLineItems[2].lineItemCost"]')
+            .setValue('input[id="newBudgetLineItems[2].lineItemCost"]', '5000.00')
+            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeS.catTypeIndex2.anchorParticipantSupport"]')
+            
 
             .click('select[name="viewBudgetPeriod"] option[value="4"]')
             .click('input[name="methodToCall.updateBudgetPeriodView"]')
@@ -241,13 +235,11 @@ module.exports = {
             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeE.catTypeIndex0.anchorEquipment"]')
             
-            .click('select[name="newBudgetLineItems[3].costElement"] option[value="420316"]')
-            .clearValue('input[id="newBudgetLineItems[3].lineItemCost"]')
-            .setValue('input[id="newBudgetLineItems[3].lineItemCost"]', '5000.00')
-            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeO.catTypeIndex3.anchorOtherDirect"]')
-            .click('input[name="methodToCall.showAllTabs"]')
-            .sendKeys('input[name="document.budget.budgetPeriods[3].budgetLineItems[3].applyInRateFlag"]', client.Keys.SPACE)
-
+           .click('select[name="newBudgetLineItems[2].costElement"] option[value="420333"]')
+            .clearValue('input[id="newBudgetLineItems[2].lineItemCost"]')
+            .setValue('input[id="newBudgetLineItems[2].lineItemCost"]', '5000.00')
+            .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeS.catTypeIndex2.anchorParticipantSupport"]')
+            
 
             // adding personnel line items
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.personnel"]')
