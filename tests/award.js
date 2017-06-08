@@ -349,7 +349,7 @@ module.exports = {
             .getText('#awardBudgetStatus', function(result) {
             budgetStatus = result.value
             console.log("Budget status is " + JSON.stringify(budgetStatus))
-            assert(budgetStatus === "Submitted" || budgetstatus === "To Be Posted")
+            assert(budgetStatus === "Submitted" || budgetStatus === "To Be Posted")
         })
 
         })
