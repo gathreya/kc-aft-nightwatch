@@ -335,6 +335,7 @@ module.exports = {
 
             .click('input[name^="methodToCall.calculateSalary.line2"]')
             .click('input[name="methodToCall.toggleTab.tab103"]')
+            .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 1000)
             .sendKeys('input[name^="methodToCall.applyToLaterPeriods.line2"]', client.Keys.ENTER)
 
             // adjusting indirect and fringe since fringe for personnel is complicated
