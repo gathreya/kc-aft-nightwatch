@@ -334,10 +334,10 @@ module.exports = {
             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[0].applyRateFlag"]', client.Keys.SPACE)
 
             .click('input[name^="methodToCall.calculateSalary.line2"]')
-            .click('input[name="methodToCall.toggleTab.tab103"]')
-            .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 1000)
+            .click('input[name="methodToCall.showAllTabs"]')
+            .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 5000)
             .sendKeys('input[name^="methodToCall.applyToLaterPeriods.line2"]', client.Keys.ENTER)
-
+            .pause(5000)
             // adjusting indirect and fringe since fringe for personnel is complicated
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.summaryTotals"]')
             .pause(1000)
