@@ -298,7 +298,8 @@ module.exports = {
 
             .click('input[name^="methodToCall.calculateSalary.line0"]')
             .click('input[name="methodToCall.showAllTabs"]')
-            .click('input[name^="methodToCall.applyToLaterPeriods.line0"]')
+            .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line0"]', 1000)
+            .sendKeys('input[name^="methodToCall.applyToLaterPeriods.line0"]', client.Keys.ENTER)
 
             .click('select[name="newBudgetPersonnelDetails.personSequenceNumber"] option[value="2"]')
             .click('select[name="newBudgetLineItems[0].costElement"] option[value="400025"]')
@@ -335,9 +336,9 @@ module.exports = {
 
             .click('input[name^="methodToCall.calculateSalary.line2"]')
             .click('input[name="methodToCall.showAllTabs"]')
-            .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 5000)
+            .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 1000)
             .sendKeys('input[name^="methodToCall.applyToLaterPeriods.line2"]', client.Keys.ENTER)
-            .pause(5000)
+            .pause(1000)
             // adjusting indirect and fringe since fringe for personnel is complicated
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.summaryTotals"]')
             .pause(1000)
