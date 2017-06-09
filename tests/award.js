@@ -373,11 +373,11 @@ module.exports = {
             })
 
             .getText('#awardBudgetStatus', function(result) {
-            budgetStatus = result.value
-            console.log("Budget status is " + JSON.stringify(budgetStatus))
-            assert(budgetStatus === "Submitted" || budgetStatus === "To Be Posted")
-        })
-
+                budgetStatus = result.value
+                console.log("Budget status is " + JSON.stringify(budgetStatus))
+                assert(budgetStatus === "Submitted" || budgetStatus === "To Be Posted")
+            })
+            .end();
         })
       done();
     })

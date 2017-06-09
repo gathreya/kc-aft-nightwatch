@@ -131,7 +131,7 @@ module.exports = {
                 assert.equal(proposalDocumentStatus, 'FINAL')
             })
         })
-
+        .end();
     })
     .end();
     }
