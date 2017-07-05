@@ -134,7 +134,6 @@ module.exports = {
             }
         })
 
-        .frame(0)
         .click('input[name="methodToCall.timeAndMoney"]')
         .getText('#awardIdAccount', function(result) {
             awardIdAccount = result.value.split(':')[0]
