@@ -27,7 +27,6 @@ module.exports = {
     .setValue('input[type=text]', 'quickstart')
     .click('button[id=Rice-LoginButton]')
 
-    //.frame(0)
     .pause(1000)
     .waitForElementVisible('input[id="document.documentHeader.documentDescription"]', 3000)
     .setValue('input[id="document.documentHeader.documentDescription"]', 'Proposal Log AFT')

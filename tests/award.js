@@ -24,8 +24,6 @@ module.exports = {
     .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
     .setValue('input[type=text]', 'quickstart')
     .click('button[id=Rice-LoginButton]')
-
-    .frame(0)
     .waitForElementVisible('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]', 3000)
     .click('input[name="methodToCall.showAllTabs"]')
     .click('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]')
