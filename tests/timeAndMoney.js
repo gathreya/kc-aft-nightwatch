@@ -33,6 +33,10 @@ module.exports = {
     
     .setValue('input[id="document.awardList[0].awardEffectiveDate"]', '04/01/2014')
     .setValue('input[id="document.awardList[0].awardAmountInfos[0].finalExpirationDate"]', '04/30/2017')
+
+    .setValue('input[id="document.awardList[0].awardAmountInfos[0].currentFundEffectiveDate"]', '04/01/2017')
+    .setValue('input[id="document.awardList[0].awardAmountInfos[0].obligationExpirationDate"]', '04/30/2017')
+
     .clearValue('input[id="document.awardList[0].awardAmountInfos[0].amountObligatedToDate"]')
     .clearValue('input[id="document.awardList[0].awardAmountInfos[0].anticipatedTotalAmount"]')
     .setValue('input[id="document.awardList[0].awardAmountInfos[0].amountObligatedToDate"]', '1000')
