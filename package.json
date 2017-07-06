@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node ./nightwatch-runner.js -c ./nightwatch-config.js"
+    "test": "node ./nightwatch-runner.js -c ./nightwatch-config.js",
+    "test-local": "node_modules/.bin/nightwatch --config ./config/local.js",
+    "postinstall": "node ./config/local.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +18,7 @@
     "dotenv": "4.0.0",
     "getenv": "0.7.0",
     "nightwatch": "0.9.12",
+    "selenium-download": "^2.0.10",
     "superagent": "3.5.2"
   },
   "devDependencies": {

@@ -37,8 +37,9 @@ module.exports = {
 
   selenium: {
     start_process: false,
+    server_path: './node_modules/nightwatch/bin/selenium.jar',
     host: SELENIUM_HOST,
-    port: SELENIUM_PORT
+    port: SELENIUM_PORT,
   },
 
   test_workers: config.get('nightwatch.runInParallel'),
