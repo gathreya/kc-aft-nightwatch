@@ -25,7 +25,7 @@ module.exports = {
     .click('select[id="document.awardList[0].activityTypeCode"] option[value="1"]')
     .click('select[id="document.awardList[0].awardTypeCode"] option[value="1"]')
 
-    .setValue('input[type="text"][name="document.documentHeader.documentDescription"]', 'Test award')
+    .setValue('input[type="text"][name="document.documentHeader.documentDescription"]', 'Nightwatch Time and Money AFT test')
     .setValue('[name="document.awardList[0].title"]', 'Nightwatch Time and Money AFT test')
 
     .setValue('input[id="document.awardList[0].unitNumber"]', '000001')
@@ -33,6 +33,8 @@ module.exports = {
     
     .setValue('input[id="document.awardList[0].awardEffectiveDate"]', '04/01/2014')
     .setValue('input[id="document.awardList[0].awardAmountInfos[0].finalExpirationDate"]', '04/30/2017')
+    .setValue('input[id="document.awardList[0].awardAmountInfos[0].amountObligatedToDate"]', '1000')
+    .setValue('input[id="document.awardList[0].awardAmountInfos[0].anticipatedTotalAmount"]', '2000')
 
     .setValue('input[id="document.award.templateCode"]', '1')
     .click('input[name="methodToCall.applySponsorTemplate"]')
@@ -41,6 +43,8 @@ module.exports = {
     .click('input[name="methodToCall.processAnswer.button0"]')
     .click('input[name="methodToCall.save"]')
     .click('input[name="methodToCall.timeAndMoney"]')
+    .click('input[name="methodToCall.save"]')
+
     .end();
     }
 };
