@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node ./nightwatch-runner.js -c ./nightwatch-config.js",
+    "test": "node ./nightwatch-runner.js --config ./config/browserstack.js",
     "test-local": "node_modules/.bin/nightwatch --config ./config/local.js",
     "postinstall": "node ./config/local.js"
   },
