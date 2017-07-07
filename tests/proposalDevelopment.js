@@ -1,5 +1,5 @@
 module.exports = {
-    '@disabled': false,
+    '@disabled': true,
 
     'PD test' : function (client) {
         client
