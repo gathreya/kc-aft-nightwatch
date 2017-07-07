@@ -72,21 +72,4 @@ module.exports = {
     safari: buildTestEnv({ browser: 'safari', browser_version: '10' })
   }
 }
-//module.exports = {
-  //browserstack: {
-    //buildId: pkg.version,
-    //username: getenv.string('BROWSERSTACK_USERNAME'),
-    //accessKey: getenv.string('BROWSERSTACK_ACCESS_KEY'),
-    //project: `Research Admin: ${getenv.string('NODE_ENV')}`
-  //},
-  //nightwatch: {
-    //baseUrl: getenv.string(
-      //'NIGHTWATCH_BASE_URL',
-      //'https://res-tst1.kuali.co'
-    //),
-    //debug: getenv.bool('NIGHTWATCH_DEBUG', false),
-    //local: getenv.bool('NIGHTWATCH_LOCAL', false),
-    //runInParallel: getenv.bool('NIGHTWATCH_RUN_IN_PARALLEL', false)
-  //}
-//}
 
