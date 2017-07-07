@@ -6,8 +6,8 @@
  * Agreement with this file. If not, please write to license@kuali.co.
  */
 
-const config = require('config')
 const request = require('superagent')
+const getenv = require('getenv')
 
 function buildBrowserstackURI (username, accessKey, sessionId) {
   return `https://${username}:${accessKey}@www.browserstack.com/automate/sessions/${sessionId}.json`
@@ -19,8 +19,8 @@ exports.command = function () {
 
   this.perform(done => {
     const browserstackURI = buildBrowserstackURI(
-      config.get('browserstack.username'),
-      config.get('browserstack.accessKey'),
+        getenv.string('BROWSERSTACK_USERNAME'),
+        getenv.string('BROWSERSTACK_ACCESS_KEY'),
       browser.sessionId
     )
 
