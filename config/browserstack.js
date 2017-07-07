@@ -33,7 +33,7 @@ function buildTestEnv (capabilities = {}) {
     launch_url: 'http://hub.browserstack',
     selenium_host: SELENIUM_HOST,
     selenium_port: SELENIUM_PORT,
-    skip_testcases_on_fail: true
+    skip_testcases_on_fail: false
   }
 }
 

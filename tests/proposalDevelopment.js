@@ -1,5 +1,5 @@
 module.exports = {
-    '@disabled': true,
+    '@disabled': false,
 
     'PD test' : function (client) {
         client
@@ -18,14 +18,11 @@ module.exports = {
             .click('select[name="document.developmentProposal.proposalTypeCode"] option[value="1"]')
             .pause(1000)
 
-        //.waitForElementVisible('ul[class="dropdown-menu inner selectpicker"]', 1000)
             .click('button[class="btn dropdown-toggle selectpicker btn-default"]')
             .pause(1000)
             .useXpath()     // every selector now must be XPath
             .click("//*[contains(text(), '000001 - University')]")
             .useCss()
-
-
             .pause(1000)
 
             .click('select[name="document.developmentProposal.activityTypeCode"] option[value="4"]')
