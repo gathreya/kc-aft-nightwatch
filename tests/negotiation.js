@@ -1,13 +1,13 @@
 const assert = require('assert');
 
 module.exports = {
-    '@disabled': true,
+    '@disabled': false,
     // '@tags': ['authorization', 'admin'],
     before: function (browser) {
     },
 
     after: function (browser) {
-        browser.signout().endSession()
+        //browser.signout().endSession()
     },
 
     /*

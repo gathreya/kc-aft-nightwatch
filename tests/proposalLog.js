@@ -8,7 +8,7 @@ module.exports = {
     },
 
     after: function (browser) {
-        browser.signout().endSession()
+        //browser.signout().endSession()
     },
 
     /*

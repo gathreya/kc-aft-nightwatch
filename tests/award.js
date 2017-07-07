@@ -8,7 +8,7 @@ module.exports = {
     },
 
     after: function (browser) {
-        browser.signout().endSession()
+        //browser.signout().endSession()
     },
 
     "Award and Award Budget test": function (client) {
@@ -20,7 +20,6 @@ module.exports = {
         let transactionAdd
 
         client
-            .pause(1000)
             .url(`${client.globals.baseUrl}/kc-dev/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .setValue('input[type=text]', 'quickstart')
@@ -47,7 +46,7 @@ module.exports = {
             .waitForElementVisible('input[name="methodToCall.processAnswer.button0"]', 1000)
             .click('input[name="methodToCall.processAnswer.button0"]')
 
-        // contacts tab
+            // contacts tab
             .pause(1000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.contacts"]')
             .pause(1000)
@@ -377,7 +376,6 @@ module.exports = {
                             .end();
                         done();
                     })
-                done();
             })
             .end();
     }

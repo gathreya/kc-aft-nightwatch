@@ -1,7 +1,8 @@
-const config = require('config')
+require('dotenv').config()
+const getenv = require('getenv')
 
 module.exports = {
-  baseUrl: config.get('nightwatch.baseUrl'),
+  baseUrl: getenv.string('NIGHTWATCH_BASE_URL'),
 
   users: {
     admin: {
