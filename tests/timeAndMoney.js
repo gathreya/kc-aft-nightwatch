@@ -6,8 +6,8 @@ module.exports = {
     before: function (browser) {
     },
 
-    after: function (browser) {
-        //browser.signout().endSession()
+    after: client => {
+        client.end()
     },
 
     "Time and Money test": function (client) {

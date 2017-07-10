@@ -6,7 +6,8 @@ module.exports = {
     before: function (browser) {
     },
 
-    after: function (browser) {
+    after: client => {
+        client.end()
     },
 
     "Award and Award Budget test": function (client) {

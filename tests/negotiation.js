@@ -6,9 +6,10 @@ module.exports = {
     before: function (browser) {
     },
 
-    after: function (browser) {
-        //browser.signout().endSession()
+    after: client => {
+        client.end()
     },
+
 
     /*
      Given Users exist with the following roles: Negotiation Administrator, Negotiation Creator
