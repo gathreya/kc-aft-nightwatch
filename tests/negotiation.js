@@ -57,9 +57,7 @@ module.exports = {
                         negotiationDocumentStatus = result.value.split(/\s+/g)[5]
                         assert.equal(negotiationDocumentStatus, 'FINAL')
                     })
-                    .end();
+                done()
             })
-
-            .end();
     }
 };

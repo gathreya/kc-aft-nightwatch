@@ -4,11 +4,9 @@ module.exports = {
     '@disabled': false,
     // '@tags': ['authorization', 'admin'],
     before: function (browser) {
-
     },
 
     after: function (browser) {
-        //browser.signout().endSession()
     },
 
     "Award and Award Budget test": function (client) {
@@ -20,6 +18,7 @@ module.exports = {
         let transactionAdd
 
         client
+            .pause(1000)
             .url(`${client.globals.baseUrl}/kc-dev/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .setValue('input[type=text]', 'quickstart')
@@ -46,7 +45,7 @@ module.exports = {
             .waitForElementVisible('input[name="methodToCall.processAnswer.button0"]', 1000)
             .click('input[name="methodToCall.processAnswer.button0"]')
 
-            // contacts tab
+        // contacts tab
             .pause(1000)
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.contacts"]')
             .pause(1000)
@@ -146,7 +145,7 @@ module.exports = {
                         client
                             .setValue('input[id="awardHierarchyNodeItems[1].currentFundEffectiveDate"]', '04/01/2014')
                             .setValue('input[id="awardHierarchyNodeItems[1].obligationExpirationDate"]', '04/30/2017')
-                            // Adding transactions
+                        // Adding transactions
                             .click(`input[name="${transactionTabNumber}"]`)
 
                             .click('select[id="transactionBean.newPendingTransaction.sourceAwardNumber"] option[value="000000-00000"]')
@@ -183,7 +182,7 @@ module.exports = {
 
                             .click('input[name="methodToCall.toggleTab.tabOtherDirect"]')
 
-                            // adding non personnel items
+                        // adding non personnel items
                             .click('select[name="newBudgetLineItems[0].costElement"] option[value="421818"]')
                             .clearValue('input[id="newBudgetLineItems[0].lineItemCost"]')
                             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
@@ -238,7 +237,7 @@ module.exports = {
                             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeS.catTypeIndex2.anchorParticipantSupport"]')
 
 
-                            // adding personnel line items
+                        // adding personnel line items
                             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.personnel"]')
                             .pause(3000)
 
@@ -271,10 +270,10 @@ module.exports = {
                             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]', '100.00')
                             .click('input[name="methodToCall.showAllTabs"]')
 
-                            // disable inflation
+                        // disable inflation
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', 1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', client.Keys.SPACE)
-                            // disable la rates
+                        // disable la rates
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', 1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', client.Keys.SPACE)
 
@@ -309,12 +308,12 @@ module.exports = {
                             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]')
                             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]', '100.00')
 
-                            // disable inflation
+                        // disable inflation
                             .click('input[name="methodToCall.showAllTabs"]')
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', 1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', client.Keys.SPACE)
 
-                            // disable la rates
+                        // disable la rates
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', 1000)
                             .pause(1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', client.Keys.SPACE)
@@ -336,7 +335,7 @@ module.exports = {
                             .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 1000)
                             .sendKeys('input[name^="methodToCall.applyToLaterPeriods.line2"]', client.Keys.ENTER)
                             .pause(1000)
-                            // adjusting indirect and fringe since fringe for personnel is complicated
+                        // adjusting indirect and fringe since fringe for personnel is complicated
                             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.summaryTotals"]')
                             .pause(1000)
                             .clearValue('input[name="document.budget.budgetPeriods[0].totalFringeAmount"]')
@@ -371,12 +370,12 @@ module.exports = {
 
                             .getText('#awardBudgetStatus', function(result) {
                                 budgetStatus = result.value
+                                console.log("Budget status is " + JSON.stringify(budgetStatus))
                                 assert(budgetStatus === "Submitted" || budgetStatus === "To Be Posted")
                             })
-                            .end();
-                        done();
+                        done()
                     })
+                done();
             })
-            //.end();
     }
 };
