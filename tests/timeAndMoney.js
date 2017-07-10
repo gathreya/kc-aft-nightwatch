@@ -6,8 +6,8 @@ module.exports = {
     before: function (browser) {
     },
 
-    after: function (browser) {
-        //browser.signout().endSession()
+    after: client => {
+        client.end()
     },
 
     "Time and Money test": function (client) {
@@ -52,7 +52,5 @@ module.exports = {
             .click('input[name="methodToCall.save"]')
             .assert.value('input[id="awardHierarchyNodeItems[1].amountObligatedToDate"]', '1,000.00')
             .assert.value('input[id="awardHierarchyNodeItems[1].anticipatedTotalAmount"]', '2,000.00')
-
-            .end();
     }
 };

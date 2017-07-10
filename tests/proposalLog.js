@@ -6,8 +6,8 @@ module.exports = {
     before: function (browser) {
     },
 
-    after: function (browser) {
-        //browser.signout().endSession()
+    after: client => {
+        client.end()
     },
 
     /*
@@ -22,6 +22,11 @@ module.exports = {
         let proposalDocumentStatus
         client
             .url(`${client.globals.baseUrl}/kc-dev/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
+            .setValue('input[type=text]', 'quickstart')
+            .click('button[id=Rice-LoginButton]')
+
+            .pause(1000)
             .waitForElementVisible('input[id="document.documentHeader.documentDescription"]', 3000)
             .setValue('input[id="document.documentHeader.documentDescription"]', 'Proposal Log AFT')
             .click('select[id="document.newMaintainableObject.proposalLogTypeCode"] option[value="1"]')
@@ -89,14 +94,14 @@ module.exports = {
 
                     .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.distribution"]')
                     .click('input[name="methodToCall.showAllTabs"]')
-                    // cost share values
+                // cost share values
                     .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.projectPeriod"]', '1')
                     .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.costSharePercentage"]', '100.00')
                     .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.sourceAccount"]', '12345')
                     .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.amount"]', '220.96')
                     .setValue('input[id="institutionalProposalCostShareBean.newInstitutionalProposalCostShare.unitNumber"]', '000001')
                     .click('input[name="methodToCall.addCostShare.anchorCostSharing"]')
-                    // unrecovered f&a
+                // unrecovered f&a
                     .setValue('input[id="institutionalProposalUnrecoveredFandABean.newInstitutionalProposalUnrecoveredFandA.fiscalYear"]', '2017')
                     .click('select[name="institutionalProposalUnrecoveredFandABean.newInstitutionalProposalUnrecoveredFandA.indirectcostRateTypeCode"] option[value="1"]')
                     .setValue('input[id="institutionalProposalUnrecoveredFandABean.newInstitutionalProposalUnrecoveredFandA.applicableIndirectcostRate"]', '10')
@@ -118,14 +123,13 @@ module.exports = {
                                     client.click('button[id=Rice-LoginButton]')        
                                 }
                             })
-
                             .getText('table', function(result) {
                                 proposalDocumentStatus = result.value.split(/\s+/g)[5]
                                 assert.equal(proposalDocumentStatus, 'FINAL')
+                                done()
                             })
                     })
-                    .end();
+                done()
             })
-            .end();
     }
 };

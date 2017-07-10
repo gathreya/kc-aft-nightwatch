@@ -6,9 +6,10 @@ module.exports = {
     before: function (browser) {
     },
 
-    after: function (browser) {
-        //browser.signout().endSession()
+    after: client => {
+        client.end()
     },
+
 
     /*
      Given Users exist with the following roles: Negotiation Administrator, Negotiation Creator
@@ -57,9 +58,7 @@ module.exports = {
                         negotiationDocumentStatus = result.value.split(/\s+/g)[5]
                         assert.equal(negotiationDocumentStatus, 'FINAL')
                     })
-                    .end();
+                done()
             })
-
-            .end();
     }
 };
