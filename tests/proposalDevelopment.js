@@ -220,7 +220,7 @@ module.exports = {
             .pause(5000)
             // PHS questionnaire
             .execute(`document.querySelector('#ubneuwx_line5').click()`)
-            .pause(10000)
+            .pause(15000)
             // answer questions
             .execute(`document.querySelector('#u1xg9194_line0_line0_control_1').click()`)
             .pause(5000)
