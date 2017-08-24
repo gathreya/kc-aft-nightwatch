@@ -408,10 +408,11 @@ module.exports = {
                   .pause(8000)
                   //back to submit page
                   .execute(`document.querySelector('#u79genf').click()`)
+                  .pause(10000)
                   //approve
                   .waitForElementVisible('button[id=uj31cvf]', 15000)
                   .click('button[id=uj31cvf]')
-                  .pause(1000)
+                  .pause(5000)
 
                   // quickstart approves
                   .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
