@@ -409,7 +409,7 @@ module.exports = {
                   //back to submit page
                   .execute(`document.querySelector('#u79genf').click()`)
                   //approve
-                  .waitForElementVisible('button[id=uj31cvf]', 10000)
+                  .waitForElementVisible('button[id=uj31cvf]', 15000)
                   .click('button[id=uj31cvf]')
                   .pause(1000)
 
