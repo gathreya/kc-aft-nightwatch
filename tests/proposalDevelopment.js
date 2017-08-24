@@ -13,6 +13,7 @@ module.exports = {
             .waitForElementVisible('body', 1000)
             .assert.title('Kuali ::')
             .assert.visible('input[type=text]')
+            .maximizeWindow()
             .setValue('input[type=text]', 'fchair')
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .click('button[id=Rice-LoginButton]')
@@ -378,7 +379,6 @@ module.exports = {
                   .waitForElementVisible('#u13t9vqj_line1_toggle_col', 1000)
                   .execute(`document.querySelector('#u13t9vqj_line1_toggle_col').click()`)
 
-                  //.waitForElementVisible('#personnelQuestionnaire_line1_tab', 8000)
                   .pause(10000)
                   .execute(`document.querySelector('#personnelQuestionnaire_line1_tab').click()`)
             
@@ -408,8 +408,8 @@ module.exports = {
                   .pause(8000)
                   //back to submit page
                   .execute(`document.querySelector('#u79genf').click()`)
-                  .pause(10000)
                   //approve
+                  .waitForElementVisible('button[id=uj31cvf]', 10000)
                   .click('button[id=uj31cvf]')
                   .pause(1000)
 
