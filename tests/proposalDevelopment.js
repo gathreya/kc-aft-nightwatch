@@ -312,7 +312,7 @@ module.exports = {
             //summary submit page
             .waitForElementVisible('#u79genf', 10000)
             .execute(`document.querySelector('#u79genf').click()`)
-            .waitForElementVisible('#uj31ctp', 10000)
+            .waitForElementVisible('#uj31ctp', 15000)
             .execute(`document.querySelector('#uj31ctp').click()`)
             
             //.end();
