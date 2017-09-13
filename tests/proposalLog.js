@@ -21,7 +21,7 @@ module.exports = {
         let proposalDocumentNumber
         let proposalDocumentStatus
         client
-            .url(`${client.globals.baseUrl}/kc-dev/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+            .url(`${client.globals.baseUrl}/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .setValue('input[type=text]', 'quickstart')
             .click('button[id=Rice-LoginButton]')
@@ -52,7 +52,7 @@ module.exports = {
             .perform(function(client, done) {      
                 client
 
-                    .url(`${client.globals.baseUrl}/kc-dev/institutionalProposalHome.do?proposalNumber=${proposalNumber}&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm`)
+                    .url(`${client.globals.baseUrl}/institutionalProposalHome.do?proposalNumber=${proposalNumber}&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm`)
                     .element('css selector', '[id=Rice-LoginButton]', function(result) {
                         if(result.status != -1) {
                             client.setValue('input[type=text]', 'quickstart')
@@ -116,7 +116,7 @@ module.exports = {
                     .perform(function(client, done) { 
                         client     
                             .pause(3000)
-                            .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${proposalDocumentNumber}`)
+                            .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${proposalDocumentNumber}`)
                             .element('css selector', '[id=Rice-LoginButton]', function(result) {
                                 if(result.status != -1) {
                                     client.setValue('input[type=text]', 'quickstart')

@@ -23,7 +23,7 @@ module.exports = {
         let negotiationDocumentStatus
 
         client
-            .url(`${client.globals.baseUrl}/kc-dev/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
+            .url(`${client.globals.baseUrl}/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
             .element('css selector', '[id=Rice-LoginButton]', function(result) {
                 if(result.status != -1) {
                     client.setValue('input[type=text]', 'quickstart')
@@ -46,7 +46,7 @@ module.exports = {
             .click('input[name="methodToCall.save"]')
             .perform(function(client, done) { 
                 client     
-                    .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
+                    .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
                     .element('css selector', '[id=Rice-LoginButton]', function(result) {
                         if(result.status != -1) {
                             client.setValue('input[type=text]', 'quickstart')

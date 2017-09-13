@@ -14,7 +14,7 @@ module.exports = {
 
         client
             .pause(1000)
-            .url(`${client.globals.baseUrl}/kc-dev/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+            .url(`${client.globals.baseUrl}/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .setValue('input[type=text]', 'quickstart')
             .click('button[id=Rice-LoginButton]')
