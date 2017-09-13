@@ -20,7 +20,7 @@ module.exports = {
 
         client
             .pause(1000)
-            .url(`${client.globals.baseUrl}/kc-dev/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/kc-dev/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
+            .url(`${client.globals.baseUrl}/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .setValue('input[type=text]', 'quickstart')
             .click('button[id=Rice-LoginButton]')
@@ -126,7 +126,7 @@ module.exports = {
                 // potentially other async stuff going on
                 // on finished, call the done callback
                 client
-                    .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                    .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                     .element('css selector', '[id=Rice-LoginButton]', function(result) {
                         if(result.status != -1) {
                             client.setValue('input[type=text]', 'quickstart')
@@ -158,7 +158,7 @@ module.exports = {
                             .setValue('input[id="transactionBean.newPendingTransaction.anticipatedAmount"]', '100000.00')
                             .click(`input[name="${transactionAdd}"]`)
                             .click('input[name="methodToCall.blanketApprove"]')
-                            .url(`https://res-tst1.kuali.co/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                            .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                             .pause(1000)
                             .click('input[name="methodToCall.headerTab.headerDispatch.reload.navigateTo.budgets"]')
                             .setValue('input[name="newBudgetVersionName"]', 'Award Budget AFT')
@@ -361,7 +361,7 @@ module.exports = {
                             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.budgetActions"]')
                             .click('input[name="methodToCall.route"]')
                             .pause(1000)
-                            .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${budgetDocumentNumber}`)
+                            .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${budgetDocumentNumber}`)
                             .element('css selector', '[id=Rice-LoginButton]', function(result) {
                                 if(result.status != -1) {
                                     client.setValue('input[type=text]', 'quickstart')

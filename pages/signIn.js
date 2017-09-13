@@ -11,8 +11,6 @@ const authCommands = {
     const page = this
     const browser = this.api
 
-    page.assert.urlContains('kc-dev')
-
     page
       .waitForElementVisible('@submit', 1000)
       .setValue('@username', 'quickstart')
@@ -33,6 +31,6 @@ module.exports = {
   },
 
   url () {
-    return `${this.api.globals.baseUrl}/kc-dev`
+    return `${this.api.globals.baseUrl}`
   }
 }
