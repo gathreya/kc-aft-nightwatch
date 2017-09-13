@@ -22,9 +22,12 @@ module.exports = {
         let proposalDocumentStatus
         client
             .url(`${client.globals.baseUrl}/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
-            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-            .setValue('input[type=text]', 'quickstart')
-            .click('button[id=Rice-LoginButton]')
+
+            .waitForElementVisible('input[data-test="username"]', 1000)
+            .maximizeWindow()
+            .setValue('input[data-test="username"]', 'quickstart')
+            .setValue('input[data-test="password"]', 'password')
+            .click('button[data-test="login"]')
 
             .pause(1000)
             .waitForElementVisible('input[id="document.documentHeader.documentDescription"]', 3000)
@@ -53,12 +56,6 @@ module.exports = {
                 client
 
                     .url(`${client.globals.baseUrl}/institutionalProposalHome.do?proposalNumber=${proposalNumber}&docTypeName=InstitutionalProposalDocument&methodToCall=docHandler&command=initiate#topOfForm`)
-                    .element('css selector', '[id=Rice-LoginButton]', function(result) {
-                        if(result.status != -1) {
-                            client.setValue('input[type=text]', 'quickstart')
-                            client.click('button[id=Rice-LoginButton]')        
-                        }
-                    })
 
                     .pause(1000)
                     .click('input[name="methodToCall.showAllTabs"]')
@@ -117,12 +114,7 @@ module.exports = {
                         client     
                             .pause(3000)
                             .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${proposalDocumentNumber}`)
-                            .element('css selector', '[id=Rice-LoginButton]', function(result) {
-                                if(result.status != -1) {
-                                    client.setValue('input[type=text]', 'quickstart')
-                                    client.click('button[id=Rice-LoginButton]')        
-                                }
-                            })
+
                             .getText('table', function(result) {
                                 proposalDocumentStatus = result.value.split(/\s+/g)[5]
                                 assert.equal(proposalDocumentStatus, 'FINAL')

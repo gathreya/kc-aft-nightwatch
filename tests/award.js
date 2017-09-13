@@ -21,9 +21,13 @@ module.exports = {
         client
             .pause(1000)
             .url(`${client.globals.baseUrl}/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
-            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-            .setValue('input[type=text]', 'quickstart')
-            .click('button[id=Rice-LoginButton]')
+
+            .waitForElementVisible('input[data-test="username"]', 1000)
+            .maximizeWindow()
+            .setValue('input[data-test="username"]', 'quickstart')
+            .setValue('input[data-test="password"]', 'password')
+            .click('button[data-test="login"]')
+
             .waitForElementVisible('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]', 3000)
             .click('input[name="methodToCall.showAllTabs"]')
             .click('select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]')
@@ -127,12 +131,6 @@ module.exports = {
                 // on finished, call the done callback
                 client
                     .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                    .element('css selector', '[id=Rice-LoginButton]', function(result) {
-                        if(result.status != -1) {
-                            client.setValue('input[type=text]', 'quickstart')
-                            client.click('button[id=Rice-LoginButton]')        
-                        }
-                    })
 
                     .click('input[name="methodToCall.timeAndMoney"]')
                     .getText('#awardIdAccount', function(result) {
@@ -146,7 +144,7 @@ module.exports = {
                         client
                             .setValue('input[id="awardHierarchyNodeItems[1].currentFundEffectiveDate"]', '04/01/2014')
                             .setValue('input[id="awardHierarchyNodeItems[1].obligationExpirationDate"]', '04/30/2017')
-                        // Adding transactions
+                            // Adding transactions
                             .click(`input[name="${transactionTabNumber}"]`)
 
                             .click('select[id="transactionBean.newPendingTransaction.sourceAwardNumber"] option[value="000000-00000"]')
@@ -183,7 +181,7 @@ module.exports = {
 
                             .click('input[name="methodToCall.toggleTab.tabOtherDirect"]')
 
-                        // adding non personnel items
+                            // adding non personnel items
                             .click('select[name="newBudgetLineItems[0].costElement"] option[value="421818"]')
                             .clearValue('input[id="newBudgetLineItems[0].lineItemCost"]')
                             .setValue('input[id="newBudgetLineItems[0].lineItemCost"]', '5000.00')
@@ -238,7 +236,7 @@ module.exports = {
                             .click('input[name="methodToCall.addBudgetLineItem.budgetCategoryTypeCodeS.catTypeIndex2.anchorParticipantSupport"]')
 
 
-                        // adding personnel line items
+                            // adding personnel line items
                             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.personnel"]')
                             .pause(3000)
 
@@ -271,10 +269,10 @@ module.exports = {
                             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[0].budgetPersonnelDetailsList[0].percentCharged"]', '100.00')
                             .click('input[name="methodToCall.showAllTabs"]')
 
-                        // disable inflation
+                            // disable inflation
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', 1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].applyInRateFlag"]', client.Keys.SPACE)
-                        // disable la rates
+                            // disable la rates
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', 1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[0].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', client.Keys.SPACE)
 
@@ -309,12 +307,12 @@ module.exports = {
                             .clearValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]')
                             .setValue('input[name="document.budget.budgetPeriod[0].budgetLineItem[2].budgetPersonnelDetailsList[0].percentCharged"]', '100.00')
 
-                        // disable inflation
+                            // disable inflation
                             .click('input[name="methodToCall.showAllTabs"]')
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', 1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].applyInRateFlag"]', client.Keys.SPACE)
 
-                        // disable la rates
+                            // disable la rates
                             .waitForElementVisible('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', 1000)
                             .pause(1000)
                             .sendKeys('input[id="document.budget.budgetPeriods[0].budgetLineItems[2].budgetLineItemCalculatedAmounts[1].applyRateFlag"]', client.Keys.SPACE)
@@ -336,7 +334,7 @@ module.exports = {
                             .waitForElementVisible('input[name^="methodToCall.applyToLaterPeriods.line2"]', 1000)
                             .sendKeys('input[name^="methodToCall.applyToLaterPeriods.line2"]', client.Keys.ENTER)
                             .pause(1000)
-                        // adjusting indirect and fringe since fringe for personnel is complicated
+                            // adjusting indirect and fringe since fringe for personnel is complicated
                             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.summaryTotals"]')
                             .pause(1000)
                             .clearValue('input[name="document.budget.budgetPeriods[0].totalFringeAmount"]')
@@ -358,16 +356,44 @@ module.exports = {
                             .setValue('input[name="document.budget.budgetPeriods[3].totalIndirectCost"]', '13686.41')
                             .click('input[name="methodToCall.save"]')
                             .pause(1000)
+
+                            // adjusting indirect and fringe since fringe for personnel is complicated
+                            .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.distributionAndIncome"]')
+                            .pause(1000)
+                            .click('input[name="methodToCall.showAllTabs"]')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[0].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[0].sourceAccount"]', '1234')
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[0].amount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[0].amount"]', '14800.00')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[1].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[1].sourceAccount"]', '1234')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[2].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[2].sourceAccount"]', '1234')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[3].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[3].sourceAccount"]', '1234')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[4].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[4].sourceAccount"]', '1234')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[5].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[5].sourceAccount"]', '1234')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[6].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[6].sourceAccount"]', '1234')
+
+                            .clearValue('input[id="document.budget.budgetUnrecoveredFandA[7].sourceAccount"]')
+                            .setValue('input[id="document.budget.budgetUnrecoveredFandA[7].sourceAccount"]', '1234')
+
                             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.budgetActions"]')
                             .click('input[name="methodToCall.route"]')
-                            .pause(1000)
+                            .pause(5000)
+
                             .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${budgetDocumentNumber}`)
-                            .element('css selector', '[id=Rice-LoginButton]', function(result) {
-                                if(result.status != -1) {
-                                    client.setValue('input[type=text]', 'quickstart')
-                                    client.click('button[id=Rice-LoginButton]')        
-                                }
-                            })
+
 
                             .getText('#awardBudgetStatus', function(result) {
                                 budgetStatus = result.value
