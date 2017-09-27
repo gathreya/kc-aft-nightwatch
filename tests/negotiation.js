@@ -24,13 +24,13 @@ module.exports = {
 
         client
             .url(`${client.globals.baseUrl}/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
-            .element('css selector', '[id=Rice-LoginButton]', function(result) {
-                if(result.status != -1) {
-                    client.setValue('input[type=text]', 'quickstart')
-                    client.click('button[id=Rice-LoginButton]')        
-                }
-            })
+            .waitForElementVisible('input[data-test="username"]', 1000)
+            .maximizeWindow()
+            .setValue('input[data-test="username"]', 'quickstart')
+            .setValue('input[data-test="password"]', 'password')
+            .click('button[data-test="login"]')
 
+            .waitForElementVisible('input[name="methodToCall.showAllTabs"]', 1000)
             .click('input[name="methodToCall.showAllTabs"]')
             .setValue('input[name="document.documentHeader.documentDescription"]', 'Negotiation AFT')
             .click('select[name="document.negotiationList[0].negotiationStatusId"] option[value="2"]')
@@ -44,15 +44,15 @@ module.exports = {
                 negotiationDocumentNumber = result.value
             })
             .click('input[name="methodToCall.save"]')
+            .pause(5000)
             .perform(function(client, done) { 
                 client     
                     .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
-                    .element('css selector', '[id=Rice-LoginButton]', function(result) {
-                        if(result.status != -1) {
-                            client.setValue('input[type=text]', 'quickstart')
-                            client.click('button[id=Rice-LoginButton]')        
-                        }
-                    })
+                    //.waitForElementVisible('input[data-test="username"]', 1000)
+                    //.maximizeWindow()
+                    //.setValue('input[data-test="username"]', 'quickstart')
+                    //.setValue('input[data-test="password"]', 'password')
+                    //.click('button[data-test="login"]')
 
                     .getText('table', function(result) {
                         negotiationDocumentStatus = result.value.split(/\s+/g)[5]

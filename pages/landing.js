@@ -6,6 +6,7 @@ const authCommands = {
         page
             .waitForElementVisible('@submit', 1000)
             .setValue('@username', username)
+            .setValue('@password', 'password')
             .click('@submit')
             .waitForElementVisible('h1[id=Kc-LandingPage-DefaultView_header]', 2500)
 
@@ -34,8 +35,9 @@ module.exports = {
     commands: [authCommands, navigation],
 
     elements: {
-        username: 'input[type=text]',
-        submit: 'button[id=Rice-LoginButton]',
+        username: 'input[data-test="username"]',
+        password: 'input[data-test="password"]',
+        submit: 'button[data-test="login"]',
         unitDropdown: '.kc-unitDropdown a',
         newAward: 'a[id=utv5bte]'
     },
