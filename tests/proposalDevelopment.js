@@ -10,13 +10,13 @@ module.exports = {
       let documentStatus
         client
             .url(`${client.globals.baseUrl}/`)
-            .waitForElementVisible('body', 1000)
-            .assert.title('Kuali ::')
-            .assert.visible('input[type=text]')
+            
+            .waitForElementVisible('input[data-test="username"]', 1000)
             .maximizeWindow()
-            .setValue('input[type=text]', 'fchair')
-            .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-            .click('button[id=Rice-LoginButton]')
+            .setValue('input[data-test="username"]', 'quickstart')
+            .setValue('input[data-test="password"]', 'password')
+            .click('button[data-test="login"]')
+
             .pause(1000)
             .useXpath()     // every selector now must be XPath
             .click("//*[contains(text(), 'RESEARCHER')]")
@@ -332,12 +332,13 @@ module.exports = {
                   // wait for workflow
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  .waitForElementVisible('body', 1000)
-                  .assert.title('Kuali ::')
-                  .assert.visible('input[type=text]')
-                  .setValue('input[type=text]', 'shields')
-                  .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-                  .click('button[id=Rice-LoginButton]')
+                 
+                  .waitForElementVisible('input[data-test="username"]', 1000)
+                  .maximizeWindow()
+                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="password"]', 'password')
+                  .click('button[data-test="login"]')
+
                   .waitForElementVisible('button[id=uj31cvf]', 10000)
                   .click('button[id=uj31cvf]')
                   .pause(1000)
@@ -346,12 +347,13 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  .waitForElementVisible('body', 1000)
-                  .assert.title('Kuali ::')
-                  .assert.visible('input[type=text]')
-                  .setValue('input[type=text]', 'aemcafee')
-                  .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-                  .click('button[id=Rice-LoginButton]')
+                  
+                   .waitForElementVisible('input[data-test="username"]', 1000)
+                  .maximizeWindow()
+                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="password"]', 'password')
+                  .click('button[data-test="login"]')
+
                   .waitForElementVisible('button[id=uj31cvf]', 10000)
                   //approve
                   .click('button[id=uj31cvf]')
@@ -361,12 +363,13 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  .waitForElementVisible('body', 1000)
-                  .assert.title('Kuali ::')
-                  .assert.visible('input[type=text]')
-                  .setValue('input[type=text]', 'cbernal')
-                  .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-                  .click('button[id=Rice-LoginButton]')
+                  
+                  .waitForElementVisible('input[data-test="username"]', 1000)
+                  .maximizeWindow()
+                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="password"]', 'password')
+                  .click('button[data-test="login"]')
+
                   .waitForElementVisible('button[id=uj31cvf]', 10000)
 
                   //navigate to cert pages
@@ -418,12 +421,13 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  .waitForElementVisible('body', 1000)
-                  .assert.title('Kuali ::')
-                  .assert.visible('input[type=text]')
-                  .setValue('input[type=text]', 'quickstart')
-                  .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-                  .click('button[id=Rice-LoginButton]')
+                  
+                  .waitForElementVisible('input[data-test="username"]', 1000)
+                  .maximizeWindow()
+                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="password"]', 'password')
+                  .click('button[data-test="login"]')
+
                   .waitForElementVisible('button[id=uj31cvf]', 10000)
                   //approve
                   .click('button[id=uj31cvf]')
@@ -433,12 +437,13 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  .waitForElementVisible('body', 1000)
-                  .assert.title('Kuali ::')
-                  .assert.visible('input[type=text]')
-                  .setValue('input[type=text]', 'quickstart')
-                  .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-                  .click('button[id=Rice-LoginButton]')
+                  
+                  .waitForElementVisible('input[data-test="username"]', 1000)
+                  .maximizeWindow()
+                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="password"]', 'password')
+                  .click('button[data-test="login"]')
+
                   .waitForElementVisible('button[id=uj31cvf]', 10000)
                   //approve
                   .click('button[id=uj31cvf]')
