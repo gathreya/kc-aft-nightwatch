@@ -9,12 +9,12 @@ module.exports = {
       let documentNumber
       let documentStatus
         client
-            .url(`${client.globals.baseUrl}/kc-dev/`)
+            .url(`${client.globals.baseUrl}/`)
             .waitForElementVisible('body', 1000)
             .assert.title('Kuali ::')
             .assert.visible('input[type=text]')
             .maximizeWindow()
-            .setValue('input[type=text]', 'fchair')
+            .setValue('input[type=text]', 'oblood')
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .click('button[id=Rice-LoginButton]')
             .pause(1000)
@@ -328,10 +328,10 @@ module.exports = {
                   .pause(3000)
                   // wait for workflow
                   // logout, login as shields and approves
-                  .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   // wait for workflow
                   .pause(15000)
-                  .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   .waitForElementVisible('body', 1000)
                   .assert.title('Kuali ::')
                   .assert.visible('input[type=text]')
@@ -343,9 +343,9 @@ module.exports = {
                   .pause(1000)
 
                   // logout, login as aemcafee and approves
-                  .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
-                  .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   .waitForElementVisible('body', 1000)
                   .assert.title('Kuali ::')
                   .assert.visible('input[type=text]')
@@ -358,9 +358,9 @@ module.exports = {
                   .pause(1000)
 
                   //approve as cbernal
-                  .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
-                  .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   .waitForElementVisible('body', 1000)
                   .assert.title('Kuali ::')
                   .assert.visible('input[type=text]')
@@ -415,9 +415,9 @@ module.exports = {
                   .pause(5000)
 
                   // quickstart approves
-                  .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
-                  .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   .waitForElementVisible('body', 1000)
                   .assert.title('Kuali ::')
                   .assert.visible('input[type=text]')
@@ -430,9 +430,9 @@ module.exports = {
                   .pause(1000)
 
                   // quickstart approves
-                  .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
-                  .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   .waitForElementVisible('body', 1000)
                   .assert.title('Kuali ::')
                   .assert.visible('input[type=text]')
@@ -444,9 +444,9 @@ module.exports = {
                   .click('button[id=uj31cvf]')
 
                   //logout
-                  .url(`${client.globals.baseUrl}/kc-dev/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
-                  .url(`${client.globals.baseUrl}/kc-dev/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   //login as quickstart to check status
                   .waitForElementVisible('body', 1000)
                   .assert.title('Kuali ::')
