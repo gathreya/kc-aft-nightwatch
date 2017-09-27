@@ -14,7 +14,7 @@ module.exports = {
             .assert.title('Kuali ::')
             .assert.visible('input[type=text]')
             .maximizeWindow()
-            .setValue('input[type=text]', 'oblood')
+            .setValue('input[type=text]', 'fchair')
             .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
             .click('button[id=Rice-LoginButton]')
             .pause(1000)
