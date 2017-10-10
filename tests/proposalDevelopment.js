@@ -10,7 +10,7 @@ module.exports = {
       let documentStatus
         client
             .url(`${client.globals.baseUrl}/`)
-            
+
             .waitForElementVisible('input[data-test="username"]', 1000)
             .maximizeWindow()
             .setValue('input[data-test="username"]', 'quickstart')
@@ -22,11 +22,11 @@ module.exports = {
             .click("//*[contains(text(), 'RESEARCHER')]")
             .click("//*[contains(text(), 'Create Proposal')]")
             .useCss()
-            
+
             //detailsPage
             .click('select[name="document.developmentProposal.proposalTypeCode"] option[value="1"]')
             .pause(1000)
-            .execute(`document.querySelector('select[name="document.developmentProposal.ownedByUnitNumber"] option[value="BL-BL"]').selected = true`)
+            .execute(`document.querySelector('select[name="document.developmentProposal.ownedByUnitNumber"] option[value="IN-CARD"]').selected = true`)
             .execute(`document.querySelector('#uk9itv5_control').value='000340'`)
 
             .click('select[name="document.developmentProposal.activityTypeCode"] option[value="4"]')
@@ -99,7 +99,7 @@ module.exports = {
             //fill certification
             // go to cert tab
             .execute(`document.querySelector('#personnelQuestionnaire_line0_tab').click()`)
-            
+
             .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line0_control_0', 10000)
             .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line0_line0_control_0').click()`)
 
@@ -120,14 +120,14 @@ module.exports = {
 
             .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line6_line0_control_0', 10000)
             .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line6_line0_control_0').click()`)
-            
+
             //save answers
             //.click('button[id="udi4ayd_quickfinder_act"]')
             .pause(3000)
             // close pi details
             .execute(`document.querySelector('#u13t9vqj_line0_toggle_col').click()`)
 
-            // credit allocation            
+            // credit allocation
             .execute(`document.querySelector('#u3s0ek4').click()`)
             .pause(3000)
             //aemcafee credits
@@ -182,7 +182,7 @@ module.exports = {
 
             .clearValue('input[name="creditSplitListItems[4].creditSplits[3].credit"]')
             .setValue('input[name="creditSplitListItems[4].creditSplits[3].credit"]', '50.00')
-            
+
             // CONCETTA BERNAL 000001 - University credit split
             .clearValue('input[name="creditSplitListItems[5].creditSplits[0].credit"]')
             .setValue('input[name="creditSplitListItems[5].creditSplits[0].credit"]', '100.00')
@@ -213,7 +213,7 @@ module.exports = {
             //.setValue('input[type="text"][id="#u19le2sg_control"]', 'PA-C-R01')
             .execute(`document.querySelector('#ufuknop').click()`)
             .execute(`document.querySelector('#u1ywkycz_line2').click()`)
-            
+
             // questionnaire
             // click on data validation
             .execute(`document.querySelector('#u19btjw4').click()`)
@@ -230,7 +230,7 @@ module.exports = {
 
             .execute(`document.querySelector('#u1xg9194_line0_line6_control_1').click()`)
             .pause(5000)
-            
+
             .execute(`document.querySelector('#u1xg9194_line0_line9_control_1').click()`)
             .pause(5000)
 
@@ -314,7 +314,7 @@ module.exports = {
             .execute(`document.querySelector('#u79genf').click()`)
             .waitForElementVisible('#uj31ctp', 15000)
             .execute(`document.querySelector('#uj31ctp').click()`)
-            
+
             //.end();
             // doc number div
             .getText('#u7lh763', function(result) {
@@ -332,7 +332,7 @@ module.exports = {
                   // wait for workflow
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                 
+
                   .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
@@ -347,7 +347,7 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                    .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
@@ -363,7 +363,7 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                   .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
@@ -384,7 +384,7 @@ module.exports = {
 
                   .pause(10000)
                   .execute(`document.querySelector('#personnelQuestionnaire_line1_tab').click()`)
-            
+
                   .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0', 10000)
                   .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0').click()`)
 
@@ -421,7 +421,7 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                   .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
@@ -437,7 +437,7 @@ module.exports = {
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   .pause(15000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                   .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
