@@ -118,9 +118,6 @@ module.exports = {
             .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line5_line0_control_0', 10000)
             .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line5_line0_control_0').click()`)
 
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line6_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line6_line0_control_0').click()`)
-
             //save answers
             //.click('button[id="udi4ayd_quickfinder_act"]')
             .pause(3000)
