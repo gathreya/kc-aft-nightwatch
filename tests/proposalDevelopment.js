@@ -1,5 +1,7 @@
 const assert = require('assert');
 
+const attachmentFile = process.env.SAMPLE_PDF || '/Users/test1/Documents/documents/pdf-sample1.pdf'
+
 module.exports = {
     '@tags': ['proposalDevelopment', 'smokeTests'],
     '@disabled': false,
@@ -273,7 +275,7 @@ module.exports = {
             .execute(`document.querySelector('#ua9nlo4').click()`)
             .pause(5000)
             .waitForElementVisible('#uk8qcpq_control', 5000)
-            .setValue('input[type="file"]', require('path').resolve('/Users/test1/Documents/documents/pdf-sample1.pdf'))
+            .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             .pause(3000)
             // close out
             .click('button[id=u1rb81qh]')
@@ -285,7 +287,7 @@ module.exports = {
             .execute(`document.querySelector('#ua9nlo4').click()`)
             .pause(5000)
             .waitForElementVisible('#uk8qcpq_control', 5000)
-            .setValue('input[type="file"]', require('path').resolve('/Users/test1/Documents/documents/pdf-sample1.pdf'))
+            .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             .pause(3000)
             //close out
             .click('button[id=u1rb81qh]')
@@ -297,7 +299,7 @@ module.exports = {
             .execute(`document.querySelector('#ua9nlo4').click()`)
             .pause(5000)
             .waitForElementVisible('#uk8qcpq_control', 5000)
-            .setValue('input[type="file"]', require('path').resolve('/Users/test1/Documents/documents/pdf-sample1.pdf'))
+            .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             .pause(3000)
             //close out
             .click('button[id=u1rb81qh]')
