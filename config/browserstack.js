@@ -56,7 +56,7 @@ module.exports = {
   test_workers: getenv.bool('NIGHTWATCH_RUN_IN_PARALLEL', false),
 
   test_settings: {
-    default: buildTestEnv({ browser: 'chrome', platform: 'MAC', browser_version: '60' }),
+    default: buildTestEnv({ browser: 'chrome', platform: 'MAC' }),
 
     chrome: buildTestEnv({ browser: 'chrome' }),
     edge: buildTestEnv({ browser: 'edge' }),
