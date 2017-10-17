@@ -21,6 +21,8 @@ module.exports = {
     'Negotiation Test' : function (client) {
         let negotiationDocumentNumber
         let negotiationDocumentStatus
+        const currentDate = new Date()
+        const startDate = new Date(currentDate.getTime() - 10368000000)
 
         client
             .url(`${client.globals.baseUrl}/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
@@ -39,14 +41,21 @@ module.exports = {
             .click('select[name="document.negotiationList[0].negotiationAssociationTypeId"] option[value="1"]')
             .setValue('input[type="text"][id="customDataHelper.customDataList[0].value"]', '5')
             .setValue('input[type="text"][id="customDataHelper.customDataList[3].value"]', '5')
+            .clearValue('input[type="text"][name="document.negotiationList[0].negotiationStartDate"]')
+            .setValue('input[type="text"][name="document.negotiationList[0].negotiationStartDate"]',
+              `${startDate.getMonth()}/${startDate.getDate()}/${startDate.getYear()+1900}`)
+            .clearValue('input[type="text"][name="document.negotiationList[0].negotiationEndDate"]')
+            .setValue('input[type="text"][name="document.negotiationList[0].negotiationEndDate"]',
+              `${currentDate.getMonth()}/${currentDate.getDate()}/${currentDate.getYear()+1900}`)
+            .click('input[name="methodToCall.save"]')
 
             .getText('td', function(result) {
                 negotiationDocumentNumber = result.value
             })
             .click('input[name="methodToCall.save"]')
             .pause(5000)
-            .perform(function(client, done) { 
-                client     
+            .perform(function(client, done) {
+                client
                     .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${negotiationDocumentNumber}`)
                     //.waitForElementVisible('input[data-test="username"]', 1000)
                     //.maximizeWindow()
@@ -55,6 +64,7 @@ module.exports = {
                     //.click('button[data-test="login"]')
 
                     .getText('table', function(result) {
+                      console.log(result.value)
                         negotiationDocumentStatus = result.value.split(/\s+/g)[5]
                         assert.equal(negotiationDocumentStatus, 'FINAL')
                     })

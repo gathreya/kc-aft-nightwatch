@@ -5,6 +5,9 @@ const attachmentFile = process.env.SAMPLE_PDF || '/Users/test1/Documents/documen
 module.exports = {
     '@tags': ['proposalDevelopment', 'smokeTests'],
     '@disabled': false,
+    after: client => {
+        client.end()
+    },    
 
     'PD test' : function (client) {
       let detailsPage = client.page.ProposalDevelopmentDetailsPage
