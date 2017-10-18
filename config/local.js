@@ -1,4 +1,5 @@
 const BINPATH = './node_modules/nightwatch/bin/'
+const getenv = require('getenv')
 /**
  * selenium-download does exactly what it's name suggests;
  * downloads (or updates) the version of Selenium (& chromedriver)
@@ -19,6 +20,7 @@ const config = {
     globals_path: 'globals',
     custom_commands_path: "commands",
     page_objects_path: "pages",
+    disable_colors: getenv.bool('DISABLE_COLORS', false),
     selenium: {
         start_process: true,
         server_path: "./node_modules/nightwatch/bin/selenium.jar",

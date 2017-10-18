@@ -45,6 +45,7 @@ module.exports = {
   page_objects_path: 'pages',
   custom_commands_path: 'commands',
   custom_assertions_path: 'assertions',
+  disable_colors: getenv.bool('DISABLE_COLORS', false),
 
   selenium: {
     start_process: false,
