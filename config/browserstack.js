@@ -10,8 +10,6 @@ require('dotenv').config()
 const getenv = require('getenv')
 const pkg = require('../package')
 
-const config = require('config')
-
 const SELENIUM_HOST = 'hub-cloud.browserstack.com'
 const SELENIUM_PORT = 80
 
@@ -33,11 +31,12 @@ function buildTestEnv (capabilities = {}) {
     launch_url: 'http://hub.browserstack',
     selenium_host: SELENIUM_HOST,
     selenium_port: SELENIUM_PORT,
-    skip_testcases_on_fail: false
+    skip_testcases_on_fail: false,
+    resolution: '1280x1024'
   }
 }
 
-module.exports = {
+const nwConfig = {
   src_folders: ['tests'],
   output_folder: 'reports',
 
@@ -73,3 +72,9 @@ module.exports = {
     safari: buildTestEnv({ browser: 'safari', browser_version: '10' })
   }
 }
+
+if (process.env.ONLY_RUN) {
+  nwConfig.test_settings.default.filter = `tests/${process.env.ONLY_RUN}`
+}
+
+module.exports = nwConfig

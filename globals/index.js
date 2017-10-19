@@ -3,7 +3,7 @@ const getenv = require('getenv')
 
 module.exports = {
   baseUrl: getenv.string('NIGHTWATCH_BASE_URL'),
-  waitForConditionTimeout: 20000,
+  waitForConditionTimeout: 30000,
 
   users: {
     admin: {

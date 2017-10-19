@@ -15,7 +15,7 @@ require('fs').stat(BINPATH + 'selenium.jar', function (err, stat) { // got it?
   }
 });
 
-const config = {
+const nwConfig = {
     src_folders: ["tests"],
     globals_path: 'globals',
     custom_commands_path: "commands",
@@ -51,7 +51,7 @@ const config = {
 }
 
 if (process.env.ONLY_RUN) {
-  config.test_settings.default.filter = `tests/${process.env.ONLY_RUN}`
+  nwConfig.test_settings.default.filter = `tests/${process.env.ONLY_RUN}`
 }
 
-module.exports = config
+module.exports = nwConfig

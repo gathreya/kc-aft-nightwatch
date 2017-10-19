@@ -7,7 +7,7 @@ module.exports = {
     '@disabled': false,
     after: client => {
         client.end()
-    },    
+    },
 
     'PD test' : function (client) {
       let detailsPage = client.page.ProposalDevelopmentDetailsPage
@@ -66,7 +66,7 @@ module.exports = {
             .execute(`document.querySelector('#ubneuwx_line1').click()`)
             // add person button
             .waitForElementVisible('button[id=u18fzd9v]')
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .click('button[id=u18fzd9v]')
             .waitForElementVisible('input[type="text"][id="uxa59ej_control"]')
             .setValue('input[type="text"][id="uxa59ej_control"]', 'aemcafee')
@@ -78,9 +78,10 @@ module.exports = {
             .click('button[id=u1s266pn]')
             // add person
             .waitForElementVisible('button[id=u1bkjgre]')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .click('button[id=u1bkjgre]')
             // add second person
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('button[id=u18fzd9v]')
             .click('button[id=u18fzd9v]')
             .waitForElementVisible('input[type="text"][id="uxa59ej_control"]')
@@ -98,9 +99,10 @@ module.exports = {
             // add person
             .click('button[id=u1bkjgre]')
             // eraCommons
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#u13t9vqj_line0_toggle')
             .execute(`document.querySelector('#u13t9vqj_line0_toggle').click()`)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('input[type="text"][name="document.developmentProposal.proposalPersons[0].eraCommonsUserName"]', 5000)
             .setValue('input[type="text"][name="document.developmentProposal.proposalPersons[0].eraCommonsUserName"]', 'aemcafee')
             //fill certification
@@ -199,30 +201,33 @@ module.exports = {
 
             //save
             .click('#uz1wa5n')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#PropDev-Menu > ul > li:nth-child(1) > a')
             .execute(`document.querySelector('#PropDev-Menu > ul > li:nth-child(1) > a').click()`)
             // s2s page
             .waitForElementVisible('#ua6f5f')
             .execute(`document.querySelector('#ua6f5f').click()`)
             // add opportunity
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('button[id="udi4ayd_quickfinder_act"]')
             .click('button[id="udi4ayd_quickfinder_act"]')
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .frame('uzdraaz')
             .execute(`document.querySelector('select[id="u19le2rl_control"]').value='1'`)
             .execute(`document.querySelector('#u19le2sg_control').value='PA-C-R01'`)
-            //.setValue('input[type="text"][id="#u19le2sg_control"]', 'PA-C-R01')
             .execute(`document.querySelector('#ufuknop').click()`)
-            .execute(`document.querySelector('#u1ywkycz_line2').click()`)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .execute(`document.querySelector('#u1ywkycz_line0').click()`)
 
             // questionnaire
             // click on data validation
             .execute(`document.querySelector('#u19btjw4').click()`)
             // PHS questionnaire
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#ubneuwx_line5')
             .execute(`document.querySelector('#ubneuwx_line5').click()`)
             // answer questions
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#u1xg9194_line0_line0_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line0_control_1').click()`)
 
@@ -238,22 +243,22 @@ module.exports = {
             .execute(`document.querySelector('#u1xg9194_line0_line14_control_1').click()`)
             // s2s questionnaire
             .execute(`document.querySelector('#PropDev-QuestionnairePage-GrantsgovS2SQuestionnaire_tab').click()`)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
 
             //fill answers
-            .waitForElementVisible('#uqjpr13_line0_line41_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line41_control_1').click()`)
             .waitForElementVisible('#uqjpr13_line0_line42_control_1')
             .execute(`document.querySelector('#uqjpr13_line0_line42_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line46_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line46_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line48_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line48_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line51_control_1')
-
-            .execute(`document.querySelector('#uqjpr13_line0_line51_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line54_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line54_control_1').click()`)
-            .execute(`document.querySelector('select[name="questionnaireHelper.answerHeaders[0].questions[58].answers[0].answer"]').value='Not Covered'
+            .waitForElementVisible('#uqjpr13_line0_line43_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line43_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line47_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line47_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line49_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line49_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line52_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line52_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line55_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line55_control_1').click()`)
+            .execute(`document.querySelector('select[name="questionnaireHelper.answerHeaders[0].questions[59].answers[0].answer"]').value='Not Covered'
 "Not Covered"`)
 
             //save
@@ -265,43 +270,49 @@ module.exports = {
             //click add
             .waitForElementVisible('#ua9nlo4')
             .execute(`document.querySelector('#ua9nlo4').click()`)
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#uk8qcpq_control')
             .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             // close out
             .click('button[id=u1rb81qh]')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('select[id="u8pwnkp_line0_control"]')
-            .pause(5000)
+            .pause(2000)
             .execute(`document.querySelector('select[id="u8pwnkp_line0_control"]').value='111'`)
             .execute(`document.querySelector('select[id="u8pwnlk_line0_control"]').value='C'`)
+            .pause(500)
 
             .execute(`document.querySelector('#ua9nlo4').click()`)
-            .pause(2000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#uk8qcpq_control')
             .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             //close out
             .click('button[id=u1rb81qh]')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('select[id="u8pwnkp_line0_control"]')
-            .pause(5000)
+            .pause(2000)
             .execute(`document.querySelector('select[id="u8pwnkp_line0_control"]').value='1'`)
             .execute(`document.querySelector('select[id="u8pwnlk_line0_control"]').value='C'`)
+            .pause(500)
 
             .execute(`document.querySelector('#ua9nlo4').click()`)
-            .pause(2000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#uk8qcpq_control')
             .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             //close out
             .click('button[id=u1rb81qh]')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('select[id="u8pwnkp_line0_control"]')
-            .pause(5000)
+            .pause(2000)
             .execute(`document.querySelector('select[id="u8pwnkp_line0_control"]').value='5'`)
             .execute(`document.querySelector('select[id="u8pwnlk_line0_control"]').value='C'`)
+            .pause(500)
             .click('button[id=utzb3zj]')
             //summary submit page
             .waitForElementVisible('#u79genf')
             .execute(`document.querySelector('#u79genf').click()`)
             .waitForElementVisible('#uj31ctp')
-            .pause(2000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .execute(`document.querySelector('#uj31ctp').click()`)
 
             //.end();
@@ -314,12 +325,12 @@ module.exports = {
                   client
                   //submit with warnings
                   .waitForElementVisible('#u1gno7ha')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .execute(`document.querySelector('#u1gno7ha').click()`)
                   .waitForElementVisible('#u1aynkz7')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .execute(`document.querySelector('#u1aynkz7').click()`)
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   // wait for workflow
                   // logout, login as shields and approves
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
@@ -334,12 +345,12 @@ module.exports = {
                   .click('button[data-test="login"]')
 
                   .waitForElementVisible('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
                   .waitForElementVisible('#u1aynkyc')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('#u1aynkyc')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
 
                   // logout, login as aemcafee and approves
@@ -354,9 +365,9 @@ module.exports = {
                   .click('button[data-test="login"]')
                   .waitForElementVisible('button[id=uj31cvf]')
                   //approve
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   //approve as cbernal
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
@@ -373,9 +384,9 @@ module.exports = {
 
                   //navigate to cert pages
                   .execute(`document.querySelector('#PropDev-Menu > ul > li:nth-child(2) > a').click()`)
-                  .pause(2000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .execute(`document.querySelector('#u3s0ej9').click()`)
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   // cbernal certification
                   .waitForElementVisible('#u13t9vqj_line1_toggle_col', 1000)
@@ -410,9 +421,9 @@ module.exports = {
                   //approve
 
                   .waitForElementVisible('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   // quickstart approves
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
@@ -427,9 +438,9 @@ module.exports = {
 
                   //approve
                   .waitForElementVisible('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   //logout
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
@@ -438,10 +449,10 @@ module.exports = {
                   //login as quickstart to check status
 
                   .waitForElementVisible('input[data-test="username"]', 1000)
-                  .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
                   .setValue('input[data-test="password"]', 'password')
                   .click('button[data-test="login"]')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .waitForElementVisible('#u1wvlcrs', 5000)
                   .getText('#u1wvlcrs', function(result) {
                         documentStatus = result.value
