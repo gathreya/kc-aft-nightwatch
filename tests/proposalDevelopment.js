@@ -14,14 +14,9 @@ module.exports = {
       let documentNumber
       let documentStatus
         client
-            .url(`${client.globals.baseUrl}/`)
-
-            .waitForElementVisible('input[data-test="username"]', 1000)
-            .maximizeWindow()
-            .setValue('input[data-test="username"]', 'quickstart')
-            .setValue('input[data-test="password"]', 'password')
-            .click('button[data-test="login"]')
-
+            .url(`${client.globals.baseUrl}/`);
+        client.page.signIn().authenticate();
+        client
             .pause(1000)
             .useXpath()     // every selector now must be XPath
             .click("//*[contains(text(), 'RESEARCHER')]")
@@ -213,10 +208,12 @@ module.exports = {
             .click('button[id="udi4ayd_quickfinder_act"]')
             .waitForElementNotPresent('.blockUI.blockOverlay')
             .frame('uzdraaz')
+            .waitForElementVisible('select[id="u19le2rl_control"]')
             .execute(`document.querySelector('select[id="u19le2rl_control"]').value='1'`)
             .execute(`document.querySelector('#u19le2sg_control').value='PA-C-R01'`)
             .execute(`document.querySelector('#ufuknop').click()`)
             .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#u1ywkycz_line0')
             .execute(`document.querySelector('#u1ywkycz_line0').click()`)
 
             // questionnaire
@@ -246,19 +243,19 @@ module.exports = {
             .waitForElementNotPresent('.blockUI.blockOverlay')
 
             //fill answers
-            .waitForElementVisible('#uqjpr13_line0_line42_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line42_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line43_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line43_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line47_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line47_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line49_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line49_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line52_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line52_control_1').click()`)
-            .waitForElementVisible('#uqjpr13_line0_line55_control_1')
-            .execute(`document.querySelector('#uqjpr13_line0_line55_control_1').click()`)
-            .execute(`document.querySelector('select[name="questionnaireHelper.answerHeaders[0].questions[59].answers[0].answer"]').value='Not Covered'
+            .waitForElementVisible('#uqjpr13_line0_line53_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line53_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line54_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line54_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line58_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line58_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line60_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line60_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line63_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line63_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line66_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line66_control_1').click()`)
+            .execute(`document.querySelector('select[name="questionnaireHelper.answerHeaders[0].questions[70].answers[0].answer"]').value='Not Covered'
 "Not Covered"`)
 
             //save

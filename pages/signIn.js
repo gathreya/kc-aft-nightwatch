@@ -12,7 +12,7 @@ const authCommands = {
     const browser = this.api
 
     page
-      .waitForElementVisible('@submit', 1000)
+      .waitForElementVisible('@submit')
       .setValue('@username', 'quickstart')
       .setValue('@password', 'password')
       .click('@submit')
