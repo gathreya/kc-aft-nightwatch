@@ -43,10 +43,10 @@ module.exports = {
             .setValue('input[type="text"][id="customDataHelper.customDataList[3].value"]', '5')
             .clearValue('input[type="text"][name="document.negotiationList[0].negotiationStartDate"]')
             .setValue('input[type="text"][name="document.negotiationList[0].negotiationStartDate"]',
-              `${startDate.getMonth()}/${startDate.getDate()}/${startDate.getYear()+1900}`)
+              `${startDate.getMonth() + 1}/${startDate.getDate()}/${startDate.getFullYear()}`)
             .clearValue('input[type="text"][name="document.negotiationList[0].negotiationEndDate"]')
             .setValue('input[type="text"][name="document.negotiationList[0].negotiationEndDate"]',
-              `${currentDate.getMonth()}/${currentDate.getDate()}/${currentDate.getYear()+1900}`)
+              `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`)
             .click('input[name="methodToCall.save"]')
 
             .getText('td', function(result) {
