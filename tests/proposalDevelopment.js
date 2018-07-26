@@ -210,7 +210,7 @@ module.exports = {
             .frame('uzdraaz')
             .waitForElementVisible('select[id="u19le2rl_control"]')
             .execute(`document.querySelector('select[id="u19le2rl_control"]').value='1'`)
-            .execute(`document.querySelector('#u19le2sg_control').value='PA-C-R01'`)
+            .execute(`document.querySelector('#u19le2tb_control').value='PA-C-R01'`)
             .execute(`document.querySelector('#ufuknop').click()`)
             .waitForElementNotPresent('.blockUI.blockOverlay')
             .waitForElementVisible('#u1ywkycz_line0')
