@@ -5,11 +5,8 @@ module.exports = {
     '@disabled': false,
 
     before: client => {
-        page = client.page.landing()
-        page
-            .navigate()
-            .authenticate('quickstart')
-
+        page = client.page.landing().navigate()
+        client.login().waitForElementVisible('h1[id=Kc-LandingPage-DefaultView_header]', 2500)
     },
 
     after: client => {

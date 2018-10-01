@@ -22,12 +22,7 @@ module.exports = {
         let proposalDocumentStatus
         client
             .url(`${client.globals.baseUrl}/kr/maintenance.do?methodToCall=start&businessObjectClassName=org.kuali.kra.institutionalproposal.proposallog.ProposalLog&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
-
-            .waitForElementVisible('input[data-test="username"]', 1000)
-            .maximizeWindow()
-            .setValue('input[data-test="username"]', 'quickstart')
-            .setValue('input[data-test="password"]', 'password')
-            .click('button[data-test="login"]')
+            .login()
 
             .pause(1000)
             .waitForElementVisible('input[id="document.documentHeader.documentDescription"]', 3000)
