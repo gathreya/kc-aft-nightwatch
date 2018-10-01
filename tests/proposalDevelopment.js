@@ -1,32 +1,29 @@
 const assert = require('assert');
 
+const attachmentFile = process.env.SAMPLE_PDF || '/Users/test1/Documents/documents/pdf-sample1.pdf'
+
 module.exports = {
     '@tags': ['proposalDevelopment', 'smokeTests'],
     '@disabled': false,
+    after: client => {
+        client.end()
+    },
 
     'PD test' : function (client) {
-      let detailsPage = client.page.ProposalDevelopmentDetailsPage
       let documentNumber
       let documentStatus
         client
             .url(`${client.globals.baseUrl}/`)
-            
-            .waitForElementVisible('input[data-test="username"]', 1000)
-            .maximizeWindow()
-            .setValue('input[data-test="username"]', 'quickstart')
-            .setValue('input[data-test="password"]', 'password')
-            .click('button[data-test="login"]')
-
+            .login()
             .pause(1000)
             .useXpath()     // every selector now must be XPath
             .click("//*[contains(text(), 'RESEARCHER')]")
             .click("//*[contains(text(), 'Create Proposal')]")
             .useCss()
-            
+
             //detailsPage
             .click('select[name="document.developmentProposal.proposalTypeCode"] option[value="1"]')
-            .pause(1000)
-            .execute(`document.querySelector('select[name="document.developmentProposal.ownedByUnitNumber"] option[value="BL-BL"]').selected = true`)
+            .execute(`document.querySelector('select[name="document.developmentProposal.ownedByUnitNumber"] option[value="IN-CARD"]').selected = true`)
             .execute(`document.querySelector('#uk9itv5_control').value='000340'`)
 
             .click('select[name="document.developmentProposal.activityTypeCode"] option[value="4"]')
@@ -36,70 +33,75 @@ module.exports = {
             .setValue('textArea[name="document.developmentProposal.title"]', 'Test Nightwatch AFT')
             // continue button
             .click('button[id=ufuknm4]')
-            .pause(1000)
+            .waitForElementVisible('#PropDev-Menu > ul > li.active > a')
             .click('#PropDev-Menu > ul > li.active > a')
             // data validation
             .execute(`document.querySelector('#u19btjw4').click()`)
-            .pause(5000)
+            .waitForElementVisible('button[id=u3m9tmm]')
             // turn on validation
             .execute(`document.querySelector('button[id=u3m9tmm]').click()`)
-            .pause(3000)
+            .waitForElementVisible('#ubneuwx_line3')
             // supplemental section error link and fill out
             .execute(`document.querySelector('#ubneuwx_line3').click()`)
-            .pause(5000)
+            .waitForElementVisible('input[id="AdditionalData_BillingElement_control"]')
             .setValue('input[id="AdditionalData_BillingElement_control"]', '23')
-            .pause(5000)
+            .waitForElementVisible('#u1iquhuk_Personnel_Items_for_Review_tab')
             .execute(`document.querySelector('#u1iquhuk_Personnel_Items_for_Review_tab').click()`)
-            .pause(5000)
+            .waitForElementVisible('input[id="PersonnelItemsforReview_GraduateStudentCount_control"]')
             .setValue('input[id="PersonnelItemsforReview_GraduateStudentCount_control"]', '5')
             // click save
             .click('#uzko2r3')
-            .pause(5000)
+            .waitForElementVisible('#u19btjw4')
             // click on data validation
             .execute(`document.querySelector('#u19btjw4').click()`)
-            .pause(5000)
+            .waitForElementVisible('#ubneuwx_line1')
             // follow key personnel link
             .execute(`document.querySelector('#ubneuwx_line1').click()`)
-            .pause(5000)
             // add person button
+            .waitForElementVisible('button[id=u18fzd9v]')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .click('button[id=u18fzd9v]')
-            .pause(3000)
+            .waitForElementVisible('input[type="text"][id="uxa59ej_control"]')
             .setValue('input[type="text"][id="uxa59ej_control"]', 'aemcafee')
             //search
             .click('button[id=u9iouos]')
-            .pause(5000)
+            .waitForElementVisible('#uouorvl_line0_control_0')
             .click('#uouorvl_line0_control_0')
             // clicking continue after selection
             .click('button[id=u1s266pn]')
-            .pause(3000)
             // add person
+            .waitForElementVisible('button[id=u1bkjgre]')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .click('button[id=u1bkjgre]')
-            .pause(10000)
             // add second person
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('button[id=u18fzd9v]')
             .click('button[id=u18fzd9v]')
-            .pause(3000)
+            .waitForElementVisible('input[type="text"][id="uxa59ej_control"]')
             .setValue('input[type="text"][id="uxa59ej_control"]', 'cbernal')
             //search
             .click('button[id=u9iouos]')
-            .pause(5000)
             //select
+            .waitForElementVisible('#uouorvl_line0_control_0')
             .click('#uouorvl_line0_control_0')
             // clicking continue after selection
             .click('button[id=u1s266pn]')
-            .pause(3000)
             // select coi
+            .waitForElementVisible('#PropDev-PersonnelPage-WizardPage3-personRoleRadio_control_1')
             .click('#PropDev-PersonnelPage-WizardPage3-personRoleRadio_control_1')
             // add person
             .click('button[id=u1bkjgre]')
-            .pause(3000)
             // eraCommons
-            .execute(`document.querySelector('#u13t9vqj_line0_toggle_col').click()`)
-            .pause(8000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#u13t9vqj_line0_toggle')
+            .execute(`document.querySelector('#u13t9vqj_line0_toggle').click()`)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('input[type="text"][name="document.developmentProposal.proposalPersons[0].eraCommonsUserName"]', 5000)
             .setValue('input[type="text"][name="document.developmentProposal.proposalPersons[0].eraCommonsUserName"]', 'aemcafee')
             //fill certification
             // go to cert tab
             .execute(`document.querySelector('#personnelQuestionnaire_line0_tab').click()`)
-            
+
             .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line0_control_0', 10000)
             .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line0_line0_control_0').click()`)
 
@@ -118,18 +120,12 @@ module.exports = {
             .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line5_line0_control_0', 10000)
             .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line5_line0_control_0').click()`)
 
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line6_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line6_line0_control_0').click()`)
-            
-            //save answers
-            //.click('button[id="udi4ayd_quickfinder_act"]')
-            .pause(3000)
             // close pi details
-            .execute(`document.querySelector('#u13t9vqj_line0_toggle_col').click()`)
+            .execute(`document.querySelector('#u13t9vqj_line0_toggle').click()`)
 
-            // credit allocation            
+            // credit allocation
             .execute(`document.querySelector('#u3s0ek4').click()`)
-            .pause(3000)
+            .waitForElementVisible('input[name="creditSplitListItems[0].creditSplits[0].credit"]')
             //aemcafee credits
             .clearValue('input[name="creditSplitListItems[0].creditSplits[0].credit"]')
             .setValue('input[name="creditSplitListItems[0].creditSplits[0].credit"]', '50.00')
@@ -182,7 +178,7 @@ module.exports = {
 
             .clearValue('input[name="creditSplitListItems[4].creditSplits[3].credit"]')
             .setValue('input[name="creditSplitListItems[4].creditSplits[3].credit"]', '50.00')
-            
+
             // CONCETTA BERNAL 000001 - University credit split
             .clearValue('input[name="creditSplitListItems[5].creditSplits[0].credit"]')
             .setValue('input[name="creditSplitListItems[5].creditSplits[0].credit"]', '100.00')
@@ -198,193 +194,201 @@ module.exports = {
 
             //save
             .click('#uz1wa5n')
-            .pause(5000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#PropDev-Menu > ul > li:nth-child(1) > a')
             .execute(`document.querySelector('#PropDev-Menu > ul > li:nth-child(1) > a').click()`)
-            .pause(1000)
             // s2s page
+            .waitForElementVisible('#ua6f5f')
             .execute(`document.querySelector('#ua6f5f').click()`)
-            .pause(5000)
             // add opportunity
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('button[id="udi4ayd_quickfinder_act"]')
             .click('button[id="udi4ayd_quickfinder_act"]')
-            .pause(8000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .frame('uzdraaz')
+            .waitForElementVisible('select[id="u19le2rl_control"]')
             .execute(`document.querySelector('select[id="u19le2rl_control"]').value='1'`)
-            .execute(`document.querySelector('#u19le2sg_control').value='PA-C-R01'`)
-            //.setValue('input[type="text"][id="#u19le2sg_control"]', 'PA-C-R01')
+            .execute(`document.querySelector('#u19le2tb_control').value='PA-C-R01'`)
             .execute(`document.querySelector('#ufuknop').click()`)
-            .execute(`document.querySelector('#u1ywkycz_line2').click()`)
-            
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#u1ywkycz_line0')
+            .execute(`document.querySelector('#u1ywkycz_line0').click()`)
+
             // questionnaire
             // click on data validation
             .execute(`document.querySelector('#u19btjw4').click()`)
-            .pause(5000)
             // PHS questionnaire
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#ubneuwx_line5')
             .execute(`document.querySelector('#ubneuwx_line5').click()`)
-            .pause(15000)
             // answer questions
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#u1xg9194_line0_line0_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line0_control_1').click()`)
-            .pause(5000)
 
+            .waitForElementVisible('#u1xg9194_line0_line0_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line2_control_1').click()`)
-            .pause(5000)
-
+            .waitForElementVisible('#u1xg9194_line0_line6_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line6_control_1').click()`)
-            .pause(5000)
-            
+            .waitForElementVisible('#u1xg9194_line0_line9_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line9_control_1').click()`)
-            .pause(5000)
-
+            .waitForElementVisible('#u1xg9194_line0_line12_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line12_control_1').click()`)
-            .pause(5000)
-
+            .waitForElementVisible('#u1xg9194_line0_line14_control_1')
             .execute(`document.querySelector('#u1xg9194_line0_line14_control_1').click()`)
-            .pause(5000)
             // s2s questionnaire
             .execute(`document.querySelector('#PropDev-QuestionnairePage-GrantsgovS2SQuestionnaire_tab').click()`)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
 
             //fill answers
-            .execute(`document.querySelector('#uqjpr13_line0_line41_control_1').click()`)
-            .pause(5000)
-
-            .execute(`document.querySelector('#uqjpr13_line0_line42_control_1').click()`)
-            .pause(5000)
-
-            .execute(`document.querySelector('#uqjpr13_line0_line46_control_1').click()`)
-            .pause(5000)
-
-            .execute(`document.querySelector('#uqjpr13_line0_line48_control_1').click()`)
-            .pause(5000)
-
-            .execute(`document.querySelector('#uqjpr13_line0_line51_control_1').click()`)
-            .pause(5000)
-
+            .waitForElementVisible('#uqjpr13_line0_line53_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line53_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line54_control_1')
             .execute(`document.querySelector('#uqjpr13_line0_line54_control_1').click()`)
-            .pause(5000)
-
-            .execute(`document.querySelector('select[name="questionnaireHelper.answerHeaders[0].questions[58].answers[0].answer"]').value='Not Covered'
+            .waitForElementVisible('#uqjpr13_line0_line58_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line58_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line60_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line60_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line63_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line63_control_1').click()`)
+            .waitForElementVisible('#uqjpr13_line0_line66_control_1')
+            .execute(`document.querySelector('#uqjpr13_line0_line66_control_1').click()`)
+            .execute(`document.querySelector('select[name="questionnaireHelper.answerHeaders[0].questions[70].answers[0].answer"]').value='Not Covered'
 "Not Covered"`)
-            .pause(10000)
 
             //save
             .click('button[id=udhoe1a]')
-            .pause(10000)
 
             // navigate to attachments page
+            .waitForElementVisible('#u79gej4')
             .execute(`document.querySelector('#u79gej4').click()`)
             //click add
-            .waitForElementVisible('#ua9nlo4', 8000)
+            .waitForElementVisible('#ua9nlo4')
             .execute(`document.querySelector('#ua9nlo4').click()`)
-            .pause(5000)
-            .waitForElementVisible('#uk8qcpq_control', 5000)
-            .setValue('input[type="file"]', require('path').resolve('/Users/test1/Documents/documents/pdf-sample1.pdf'))
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#uk8qcpq_control')
+            .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             // close out
             .click('button[id=u1rb81qh]')
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('select[id="u8pwnkp_line0_control"]')
+            .pause(2000)
             .execute(`document.querySelector('select[id="u8pwnkp_line0_control"]').value='111'`)
             .execute(`document.querySelector('select[id="u8pwnlk_line0_control"]').value='C'`)
-            .pause(5000)
+            .pause(500)
 
             .execute(`document.querySelector('#ua9nlo4').click()`)
-            .pause(5000)
-            .waitForElementVisible('#uk8qcpq_control', 5000)
-            .setValue('input[type="file"]', require('path').resolve('/Users/test1/Documents/documents/pdf-sample1.pdf'))
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#uk8qcpq_control')
+            .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             //close out
             .click('button[id=u1rb81qh]')
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('select[id="u8pwnkp_line0_control"]')
+            .pause(2000)
             .execute(`document.querySelector('select[id="u8pwnkp_line0_control"]').value='1'`)
             .execute(`document.querySelector('select[id="u8pwnlk_line0_control"]').value='C'`)
-            .pause(5000)
+            .pause(500)
 
             .execute(`document.querySelector('#ua9nlo4').click()`)
-            .pause(5000)
-            .waitForElementVisible('#uk8qcpq_control', 5000)
-            .setValue('input[type="file"]', require('path').resolve('/Users/test1/Documents/documents/pdf-sample1.pdf'))
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('#uk8qcpq_control')
+            .setValue('input[type="file"]', require('path').resolve(attachmentFile))
             //close out
             .click('button[id=u1rb81qh]')
-            .pause(3000)
+            .waitForElementNotPresent('.blockUI.blockOverlay')
+            .waitForElementVisible('select[id="u8pwnkp_line0_control"]')
+            .pause(2000)
             .execute(`document.querySelector('select[id="u8pwnkp_line0_control"]').value='5'`)
             .execute(`document.querySelector('select[id="u8pwnlk_line0_control"]').value='C'`)
-            .pause(1000)
+            .pause(500)
             .click('button[id=utzb3zj]')
             //summary submit page
-            .waitForElementVisible('#u79genf', 10000)
+            .waitForElementVisible('#u79genf')
             .execute(`document.querySelector('#u79genf').click()`)
-            .waitForElementVisible('#uj31ctp', 15000)
+            .waitForElementVisible('#uj31ctp')
+            .waitForElementNotPresent('.blockUI.blockOverlay')
             .execute(`document.querySelector('#uj31ctp').click()`)
-            
+
             //.end();
             // doc number div
             .getText('#u7lh763', function(result) {
                   documentNumber = result.value
+                  console.log(documentNumber)
             })
             .perform(function(client, done) {
                   client
                   //submit with warnings
-                  .waitForElementVisible('#u1gno7ha', 8000)
+                  .waitForElementVisible('#u1gno7ha')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .execute(`document.querySelector('#u1gno7ha').click()`)
-                  .pause(3000)
+                  .waitForElementVisible('#u1aynkz7')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
+                  .execute(`document.querySelector('#u1aynkz7').click()`)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   // wait for workflow
                   // logout, login as shields and approves
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
                   // wait for workflow
-                  .pause(15000)
+                  .pause(2000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                 
-                  .waitForElementVisible('input[data-test="username"]', 1000)
+
+                  .waitForElementVisible('input[data-test="username"]')
                   .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="username"]', 'shields')
                   .setValue('input[data-test="password"]', 'password')
                   .click('button[data-test="login"]')
 
-                  .waitForElementVisible('button[id=uj31cvf]', 10000)
+                  .waitForElementVisible('button[id=uj31cvf]')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(1000)
+                  .waitForElementVisible('#u1aynkyc')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
+                  .click('#u1aynkyc')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
+
 
                   // logout, login as aemcafee and approves
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(15000)
+                  .pause(2000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                    .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="username"]', 'aemcafee')
                   .setValue('input[data-test="password"]', 'password')
                   .click('button[data-test="login"]')
-
-                  .waitForElementVisible('button[id=uj31cvf]', 10000)
+                  .waitForElementVisible('button[id=uj31cvf]')
                   //approve
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(1000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   //approve as cbernal
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(15000)
+                  .pause(2000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                   .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="username"]', 'cbernal')
                   .setValue('input[data-test="password"]', 'password')
                   .click('button[data-test="login"]')
 
-                  .waitForElementVisible('button[id=uj31cvf]', 10000)
+                  .waitForElementVisible('button[id=uj31cvf]')
 
                   //navigate to cert pages
                   .execute(`document.querySelector('#PropDev-Menu > ul > li:nth-child(2) > a').click()`)
-                  .pause(1000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .execute(`document.querySelector('#u3s0ej9').click()`)
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   // cbernal certification
                   .waitForElementVisible('#u13t9vqj_line1_toggle_col', 1000)
                   .execute(`document.querySelector('#u13t9vqj_line1_toggle_col').click()`)
-
-                  .pause(10000)
+                  .waitForElementVisible('#personnelQuestionnaire_line1_tab')
                   .execute(`document.querySelector('#personnelQuestionnaire_line1_tab').click()`)
-            
+
                   .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0', 10000)
                   .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0').click()`)
 
@@ -403,69 +407,56 @@ module.exports = {
                   .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line5_line1_control_0', 10000)
                   .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line5_line1_control_0').click()`)
 
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line6_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line6_line1_control_0').click()`)
-                  .pause(1000)
                   // save
                   .execute(`document.querySelector('#u8f37v6').click()`)
-                  .pause(8000)
+
                   //back to submit page
+                  .waitForElementVisible('#u79genf')
                   .execute(`document.querySelector('#u79genf').click()`)
-                  .pause(10000)
                   //approve
-                  .waitForElementVisible('button[id=uj31cvf]', 15000)
+
+                  .waitForElementVisible('button[id=uj31cvf]')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(5000)
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   // quickstart approves
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(15000)
+                  .pause(2000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
+
                   .waitForElementVisible('input[data-test="username"]', 1000)
                   .maximizeWindow()
                   .setValue('input[data-test="username"]', 'quickstart')
                   .setValue('input[data-test="password"]', 'password')
                   .click('button[data-test="login"]')
 
-                  .waitForElementVisible('button[id=uj31cvf]', 10000)
                   //approve
+                  .waitForElementVisible('button[id=uj31cvf]')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .click('button[id=uj31cvf]')
-                  .pause(1000)
-
-                  // quickstart approves
-                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(15000)
-                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  
-                  .waitForElementVisible('input[data-test="username"]', 1000)
-                  .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'quickstart')
-                  .setValue('input[data-test="password"]', 'password')
-                  .click('button[data-test="login"]')
-
-                  .waitForElementVisible('button[id=uj31cvf]', 10000)
-                  //approve
-                  .click('button[id=uj31cvf]')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
 
                   //logout
                   .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(15000)
+                  .pause(2000)
                   .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
                   //login as quickstart to check status
-                  .waitForElementVisible('body', 1000)
-                  .assert.title('Kuali ::')
-                  .assert.visible('input[type=text]')
-                  .setValue('input[type=text]', 'quickstart')
-                  .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-                  .click('button[id=Rice-LoginButton]')
+
+                  .waitForElementVisible('input[data-test="username"]', 1000)
+                  .setValue('input[data-test="username"]', 'quickstart')
+                  .setValue('input[data-test="password"]', 'password')
+                  .click('button[data-test="login"]')
+                  .waitForElementNotPresent('.blockUI.blockOverlay')
                   .waitForElementVisible('#u1wvlcrs', 5000)
                   .getText('#u1wvlcrs', function(result) {
                         documentStatus = result.value
                   })
-                  .perform(function(client, done) {
+                  .perform(function(client, done2) {
                         console.log('status is ' + JSON.stringify(documentStatus))
-                        assert(documentStatus === "Approved and Submitted")
+                        assert(documentStatus === "Approval Granted")
+                        done2()
+                        done()
                   })
             })
       }
