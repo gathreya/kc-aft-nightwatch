@@ -10,13 +10,11 @@ module.exports = {
     },
 
     'PD test' : function (client) {
-      let detailsPage = client.page.ProposalDevelopmentDetailsPage
       let documentNumber
       let documentStatus
         client
-            .url(`${client.globals.baseUrl}/`);
-        client.page.signIn().authenticate();
-        client
+            .url(`${client.globals.baseUrl}/`)
+            .login()
             .pause(1000)
             .useXpath()     // every selector now must be XPath
             .click("//*[contains(text(), 'RESEARCHER')]")

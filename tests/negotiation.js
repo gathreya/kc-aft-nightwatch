@@ -26,11 +26,7 @@ module.exports = {
 
         client
             .url(`${client.globals.baseUrl}/negotiationNegotiation.do?methodToCall=docHandler&command=initiate&docTypeName=NegotiationDocument`)
-            .waitForElementVisible('input[data-test="username"]', 1000)
-            .maximizeWindow()
-            .setValue('input[data-test="username"]', 'quickstart')
-            .setValue('input[data-test="password"]', 'password')
-            .click('button[data-test="login"]')
+            .login()
 
             .waitForElementVisible('input[name="methodToCall.showAllTabs"]', 1000)
             .click('input[name="methodToCall.showAllTabs"]')
