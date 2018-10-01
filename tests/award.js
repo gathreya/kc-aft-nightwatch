@@ -118,9 +118,13 @@ module.exports = {
             .pause(1000)
 
             .click('input[name="methodToCall.toggleTab.tabAdditionalData"]')
-            .setValue('input[id="customDataHelper.customDataList[0].value"]', '5')
+            .useXpath()
+            .setValue("//th[contains(text(),'Billing Element:')]/following-sibling::td//input", '5')
+            .useCss()
             .click('input[name="methodToCall.toggleTab.tabPersonnelItemsforReview"]')
-            .setValue('input[id="customDataHelper.customDataList[3].value"]', '5')
+            .useXpath()
+            .setValue("//th[contains(text(),'Graduate Student Count:')]/following-sibling::td//input", '5')
+            .useCss()
 
             .click('input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.awardActions"]')
             .pause(1000)

@@ -39,8 +39,10 @@ module.exports = {
             .setValue('input[type="text"][name="document.negotiationList[0].negotiatorUserName"]', 'aemcafee')
             .click('select[name="document.negotiationList[0].negotiationAgreementTypeId"] option[value="1"]')
             .click('select[name="document.negotiationList[0].negotiationAssociationTypeId"] option[value="1"]')
-            .setValue('input[type="text"][id="customDataHelper.customDataList[0].value"]', '5')
-            .setValue('input[type="text"][id="customDataHelper.customDataList[3].value"]', '5')
+            .useXpath()
+            .setValue("//th[contains(text(),'Billing Element:')]/following-sibling::td//input", '5')
+            .setValue("//th[contains(text(),'Graduate Student Count:')]/following-sibling::td//input", '5')
+            .useCss()
             .clearValue('input[type="text"][name="document.negotiationList[0].negotiationStartDate"]')
             .setValue('input[type="text"][name="document.negotiationList[0].negotiationStartDate"]',
               `${startDate.getMonth() + 1}/${startDate.getDate()}/${startDate.getFullYear()}`)
