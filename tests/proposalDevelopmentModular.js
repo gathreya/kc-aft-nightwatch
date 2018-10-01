@@ -2,7 +2,7 @@ const assert = require('assert')
 let page;
 
 module.exports = {
-    '@disabled': false,
+    '@disabled': true,
 
     before: client => {
         page = client.page.landing().navigate()

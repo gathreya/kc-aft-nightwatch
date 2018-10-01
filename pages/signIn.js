@@ -12,8 +12,9 @@ const authCommands = {
     const browser = this.api
 
     page
-      .waitForElementVisible('@submit', 1000)
+      .waitForElementVisible('@submit')
       .setValue('@username', 'quickstart')
+      .setValue('@password', 'password')
       .click('@submit')
 
     browser.pause(2000)
@@ -26,8 +27,9 @@ module.exports = {
   commands: [authCommands],
 
   elements: {
-    username: 'input[type=text]',
-    submit: 'button[id=Rice-LoginButton]'
+    username: 'input[data-test="username"]',
+    password: 'input[data-test="password"]',
+    submit: 'button[data-test="login"]'
   },
 
   url () {
