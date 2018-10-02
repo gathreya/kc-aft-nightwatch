@@ -8,22 +8,22 @@
 
 const getenv = require('getenv')
 
-exports.command = function () {
-  const username = getenv.string('LOGIN_USER', 'quickstart')
-  const password = getenv.string('LOGIN_PASSWORD', 'password')
+const DEFAULT_USERNAME = 'quickstart'
+const DEFAULT_PASSWORD = 'password'
 
+exports.command = function (username, password) {
   if (getenv.bool('USE_CORE_AUTH', true)) {
     this
       .waitForElementVisible('input[data-test="username"]')
       .maximizeWindow()
-      .setValue('input[data-test="username"]', username)
-      .setValue('input[data-test="password"]', password)
+      .setValue('input[data-test="username"]', username || DEFAULT_USERNAME)
+      .setValue('input[data-test="password"]', password || DEFAULT_PASSWORD)
       .click('button[data-test="login"]')
   } else {
     this
       .waitForElementVisible('input#Rice-UserName_control')
       .maximizeWindow()
-      .setValue('input#Rice-UserName_control', username)
+      .setValue('input#Rice-UserName_control', username || DEFAULT_USERNAME)
       .click('button#Rice-LoginButton')
   }
 

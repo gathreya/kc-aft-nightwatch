@@ -1,243 +1,23 @@
-const assert = require('assert')
+const assert = require('assert');
 
 module.exports = {
-  '@disabled': false,
-  // '@tags': ['authorization', 'admin'],
-  before: function(browser) {},
+    '@disabled': false,
+    // '@tags': ['authorization', 'admin'],
+    before: function (browser) {
+    },
 
-  after: client => {
-    client.end()
-  },
+    after: client => {
+        client.end()
+    },
 
-  'Award and Award Budget test': function(client) {
-    let documentNumber
-    let awardIdAccount
-    let awardNumber
-    let hierarchyNumber
-    let tabNumber
-    let transactionAdd
+    "Award and Award Budget test": function (client) {
+        let documentNumber
+        let awardIdAccount
+        let awardNumber
+        let hierarchyNumber
+        let tabNumber
+        let transactionAdd
 
-    client
-      .pause(1000)
-      .url(
-        `${client.globals
-          .baseUrl}/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client
-          .globals
-          .baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`
-      )
-      .waitForElementVisible('button[id=Rice-LoginButton]', 1000)
-      .setValue('input[type=text]', 'quickstart')
-      .click('button[id=Rice-LoginButton]')
-      .waitForElementVisible(
-        'select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]',
-        3000
-      )
-      .click('input[name="methodToCall.showAllTabs"]')
-      .click(
-        'select[id="document.awardList[0].awardTransactionTypeCode"] option[value="9"]'
-      )
-      .click('select[id="document.awardList[0].statusCode"] option[value="1"]')
-      .click(
-        'select[id="document.awardList[0].activityTypeCode"] option[value="1"]'
-      )
-      .click(
-        'select[id="document.awardList[0].awardTypeCode"] option[value="1"]'
-      )
-      .setValue(
-        'input[type="text"][name="document.documentHeader.documentDescription"]',
-        'Test award'
-      )
-      .setValue('[name="document.awardList[0].title"]', 'Nightwatch AFT test')
-      .setValue('input[id="document.awardList[0].unitNumber"]', '000001')
-      .setValue('input[id="document.awardList[0].sponsorCode"]', '000340')
-      .setValue(
-        'input[id="document.awardList[0].awardEffectiveDate"]',
-        '04/01/2014'
-      )
-      .setValue(
-        'input[id="document.awardList[0].awardAmountInfos[0].finalExpirationDate"]',
-        '04/30/2017'
-      )
-      .setValue('input[id="document.award.templateCode"]', '1')
-      .click('input[name="methodToCall.applySponsorTemplate"]')
-      .pause(3000)
-      .waitForElementVisible(
-        'input[name="methodToCall.processAnswer.button0"]',
-        1000
-      )
-      .click('input[name="methodToCall.processAnswer.button0"]')
-      // contacts tab
-      .pause(1000)
-      .click(
-        'input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.contacts"]'
-      )
-      .pause(1000)
-      .getText('#docIdAndStatus', function(result) {
-        documentNumber = result.value.split(':')[0]
-        budgetDocumentNumber = Number(documentNumber) + 2
-      })
-      .click(
-        'input[name="methodToCall.toggleTab.tabKeyPersonnelandCreditSplit"]'
-      )
-      .setValue(
-        'input[type="text"][name="projectPersonnelBean.newProjectPerson.person.fullName"]',
-        'aemcafee'
-      )
-      .pause(1000)
-      .setValue(
-        'input[type="text"][name="projectPersonnelBean.newProjectPerson.rolodex.fullName"]',
-        ''
-      )
-      .pause(1000)
-      .click('input[name="methodToCall.addProjectPerson"]')
-      .setValue(
-        'input[type="text"][name="projectPersonnelBean.newProjectPerson.person.fullName"]',
-        'quickstart'
-      )
-      .pause(1000)
-      .setValue(
-        'input[type="text"][name="projectPersonnelBean.newProjectPerson.rolodex.fullName"]',
-        ''
-      )
-      .pause(1000)
-      .click(
-        'select[id="projectPersonnelBean.contactRoleCode"] option[value="MPI"]'
-      )
-      .pause(1000)
-      .click('input[name="methodToCall.addProjectPerson"]')
-      .pause(1000)
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[0].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[0].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[1].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[1].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[2].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[2].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[3].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].creditSplits[3].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[0].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[0].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[1].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[1].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[2].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[2].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[3].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[0].units[0].creditSplits[3].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[0].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[0].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[1].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[1].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[2].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[2].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[3].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].creditSplits[3].credit"]',
-        '50.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[0].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[0].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[1].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[1].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[2].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[2].credit"]',
-        '100.00'
-      )
-      .clearValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[3].credit"]'
-      )
-      .setValue(
-        'input[id="document.awardList[0].personsSelectedForCreditSplit[1].units[0].creditSplits[3].credit"]',
-        '100.00'
-      )
-      .pause(1000)
-      .click('input[name="methodToCall.save"]')
-      .pause(1000)
-      .click(
-        'input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.customData"]'
-      )
-      .pause(1000)
-      .click('input[name="methodToCall.toggleTab.tabAdditionalData"]')
-      .setValue('input[id="customDataHelper.customDataList[0].value"]', '5')
-      .click('input[name="methodToCall.toggleTab.tabPersonnelItemsforReview"]')
-      .setValue('input[id="customDataHelper.customDataList[3].value"]', '5')
-      .click(
-        'input[name="methodToCall.headerTab.headerDispatch.save.navigateTo.awardActions"]'
-      )
-      .pause(1000)
-      .click('input[name="methodToCall.blanketApprove"]')
-      .pause(1000)
-      .perform(function(client, done) {
-        // potentially other async stuff going on
-        // on finished, call the done callback
         client
             .pause(1000)
             .url(`${client.globals.baseUrl}/awardHome.do?methodToCall=docHandler&command=initiate&docTypeName=AwardDocument&returnLocation=${client.globals.baseUrl}/%2Fkc-krad%2FlandingPage%3FviewId%3DKc-LandingPage-RedirectView`)
@@ -612,6 +392,5 @@ module.exports = {
                     })
                 done();
             })
-        })
     }
 };

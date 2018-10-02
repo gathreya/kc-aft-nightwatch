@@ -1,4 +1,5 @@
 const assert = require('assert');
+const getenv = require('getenv');
 
 const attachmentFile = process.env.SAMPLE_PDF || '/Users/test1/Documents/documents/pdf-sample1.pdf'
 
@@ -66,6 +67,8 @@ module.exports = {
             //search
             .click('button[id=u9iouos]')
             .waitForElementVisible('#uouorvl_line0_control_0')
+            //for some reason this radio button only works with a pause before clicking
+            .pause(500)
             .click('#uouorvl_line0_control_0')
             // clicking continue after selection
             .click('button[id=u1s266pn]')
@@ -83,6 +86,8 @@ module.exports = {
             .click('button[id=u9iouos]')
             //select
             .waitForElementVisible('#uouorvl_line0_control_0')
+            //for some reason this radio button only works with a pause before clicking
+            .pause(500)
             .click('#uouorvl_line0_control_0')
             // clicking continue after selection
             .click('button[id=u1s266pn]')
@@ -103,22 +108,11 @@ module.exports = {
             .execute(`document.querySelector('#personnelQuestionnaire_line0_tab').click()`)
 
             .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line0_line0_control_0').click()`)
-
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line1_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line1_line0_control_0').click()`)
-
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line2_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line2_line0_control_0').click()`)
-
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line3_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line3_line0_control_0').click()`)
-
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line4_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line4_line0_control_0').click()`)
-
-            .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line5_line0_control_0', 10000)
-            .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line5_line0_control_0').click()`)
+            .execute(function() {
+                  document.querySelectorAll('input[type="radio"][id^="proposalPersonQuestionnaire-InputField_line0"][id$="control_0"]').forEach(function(elem) {
+                        elem.click()
+                  })
+            })
 
             // close pi details
             .execute(`document.querySelector('#u13t9vqj_line0_toggle').click()`)
@@ -316,148 +310,116 @@ module.exports = {
                   documentNumber = result.value
                   console.log(documentNumber)
             })
-            .perform(function(client, done) {
-                  client
-                  //submit with warnings
-                  .waitForElementVisible('#u1gno7ha')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .execute(`document.querySelector('#u1gno7ha').click()`)
-                  .waitForElementVisible('#u1aynkz7')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .execute(`document.querySelector('#u1aynkz7').click()`)
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  // wait for workflow
-                  // logout, login as shields and approves
-                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  // wait for workflow
-                  .pause(2000)
-                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
 
-                  .waitForElementVisible('input[data-test="username"]')
-                  .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'shields')
-                  .setValue('input[data-test="password"]', 'password')
-                  .click('button[data-test="login"]')
+            // only test workflow in Core Auth envs for now since the routing is different elsewhere
+            if (getenv.bool('USE_CORE_AUTH', true)) {
+                  client.perform(function(client, done) {
+                        client
+                        //submit with warnings
+                        .waitForElementVisible('#u1gno7ha')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .execute(`document.querySelector('#u1gno7ha').click()`)
+                        .waitForElementVisible('#u1aynkz7')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .execute(`document.querySelector('#u1aynkz7').click()`)
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        // wait for workflow
+                        // logout, login as shields and approves
+                        .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                        // wait for workflow
+                        .pause(2000)
+                        .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        .login('shields')
 
-                  .waitForElementVisible('button[id=uj31cvf]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .click('button[id=uj31cvf]')
-                  .waitForElementVisible('#u1aynkyc')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .click('#u1aynkyc')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .waitForElementVisible('button[id=uj31cvf]')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .click('button[id=uj31cvf]')
+                        .waitForElementVisible('#u1aynkyc')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .click('#u1aynkyc')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
 
+                        // logout, login as aemcafee and approves
+                        .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                        .pause(2000)
+                        .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        .login('aemcafee')
 
-                  // logout, login as aemcafee and approves
-                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(2000)
-                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        //approve
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .click('button[id=uj31cvf]')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
 
-                   .waitForElementVisible('input[data-test="username"]', 1000)
-                  .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'aemcafee')
-                  .setValue('input[data-test="password"]', 'password')
-                  .click('button[data-test="login"]')
-                  .waitForElementVisible('button[id=uj31cvf]')
-                  //approve
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .click('button[id=uj31cvf]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
+                        //approve as cbernal
+                        .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                        .pause(2000)
+                        .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        .login('cbernal')
 
-                  //approve as cbernal
-                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(2000)
-                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        .waitForElementVisible('button[id=uj31cvf]')
 
-                  .waitForElementVisible('input[data-test="username"]', 1000)
-                  .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'cbernal')
-                  .setValue('input[data-test="password"]', 'password')
-                  .click('button[data-test="login"]')
+                        //navigate to cert pages
+                        .execute(`document.querySelector('#PropDev-Menu > ul > li:nth-child(2) > a').click()`)
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .execute(`document.querySelector('#u3s0ej9').click()`)
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
 
-                  .waitForElementVisible('button[id=uj31cvf]')
+                        // cbernal certification
+                        .waitForElementVisible('#u13t9vqj_line1_toggle_col', 1000)
+                        .execute(`document.querySelector('#u13t9vqj_line1_toggle_col').click()`)
+                        .waitForElementVisible('#personnelQuestionnaire_line1_tab')
+                        .execute(`document.querySelector('#personnelQuestionnaire_line1_tab').click()`)
 
-                  //navigate to cert pages
-                  .execute(`document.querySelector('#PropDev-Menu > ul > li:nth-child(2) > a').click()`)
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .execute(`document.querySelector('#u3s0ej9').click()`)
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0', 10000)
+                        .execute(function() {
+                              document.querySelectorAll('input[type="radio"][id^="proposalPersonQuestionnaire-InputField_line0"][id$="control_0"]').forEach(function(elem) {
+                                    elem.click()
+                              })
+                        })
 
-                  // cbernal certification
-                  .waitForElementVisible('#u13t9vqj_line1_toggle_col', 1000)
-                  .execute(`document.querySelector('#u13t9vqj_line1_toggle_col').click()`)
-                  .waitForElementVisible('#personnelQuestionnaire_line1_tab')
-                  .execute(`document.querySelector('#personnelQuestionnaire_line1_tab').click()`)
+                        // save
+                        .execute(`document.querySelector('#u8f37v6').click()`)
 
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line0_line1_control_0').click()`)
+                        //back to submit page
+                        .waitForElementVisible('#u79genf')
+                        .execute(`document.querySelector('#u79genf').click()`)
+                        //approve
 
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line1_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line1_line1_control_0').click()`)
+                        .waitForElementVisible('button[id=uj31cvf]')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .click('button[id=uj31cvf]')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
 
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line2_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line2_line1_control_0').click()`)
+                        // quickstart approves
+                        .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                        .pause(2000)
+                        .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        .login()
 
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line3_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line3_line1_control_0').click()`)
+                        //approve
+                        .waitForElementVisible('button[id=uj31cvf]')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .click('button[id=uj31cvf]')
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
 
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line4_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line4_line1_control_0').click()`)
-
-                  .waitForElementVisible('#proposalPersonQuestionnaire-InputField_line0_line5_line1_control_0', 10000)
-                  .execute(`document.querySelector('#proposalPersonQuestionnaire-InputField_line0_line5_line1_control_0').click()`)
-
-                  // save
-                  .execute(`document.querySelector('#u8f37v6').click()`)
-
-                  //back to submit page
-                  .waitForElementVisible('#u79genf')
-                  .execute(`document.querySelector('#u79genf').click()`)
-                  //approve
-
-                  .waitForElementVisible('button[id=uj31cvf]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .click('button[id=uj31cvf]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-
-                  // quickstart approves
-                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(2000)
-                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-
-                  .waitForElementVisible('input[data-test="username"]', 1000)
-                  .maximizeWindow()
-                  .setValue('input[data-test="username"]', 'quickstart')
-                  .setValue('input[data-test="password"]', 'password')
-                  .click('button[data-test="login"]')
-
-                  //approve
-                  .waitForElementVisible('button[id=uj31cvf]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .click('button[id=uj31cvf]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-
-                  //logout
-                  .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
-                  .pause(2000)
-                  .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
-                  //login as quickstart to check status
-
-                  .waitForElementVisible('input[data-test="username"]', 1000)
-                  .setValue('input[data-test="username"]', 'quickstart')
-                  .setValue('input[data-test="password"]', 'password')
-                  .click('button[data-test="login"]')
-                  .waitForElementNotPresent('.blockUI.blockOverlay')
-                  .waitForElementVisible('#u1wvlcrs', 5000)
-                  .getText('#u1wvlcrs', function(result) {
-                        documentStatus = result.value
+                        //logout
+                        .url(`${client.globals.baseUrl}/kc-krad/landingPage?viewId=Kc-LandingPage-DefaultView&methodToCall=logout`)
+                        .pause(2000)
+                        .url(`${client.globals.baseUrl}/kew/DocHandler.do?command=displayDocSearchView&docId=${documentNumber}`)
+                        //login as quickstart to check status
+                        .login()
+                        .waitForElementNotPresent('.blockUI.blockOverlay')
+                        .waitForElementVisible('#u1wvlcrs', 5000)
+                        .getText('#u1wvlcrs', function(result) {
+                              documentStatus = result.value
+                        })
+                        .perform(function(client, done2) {
+                              console.log('status is ' + JSON.stringify(documentStatus))
+                              assert(documentStatus === "Approval Granted")
+                              done2()
+                              done()
+                        })
                   })
-                  .perform(function(client, done2) {
-                        console.log('status is ' + JSON.stringify(documentStatus))
-                        assert(documentStatus === "Approval Granted")
-                        done2()
-                        done()
-                  })
-            })
+            }
       }
 };

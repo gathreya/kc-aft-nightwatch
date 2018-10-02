@@ -17,8 +17,8 @@
     "config": "1.25.1",
     "dotenv": "4.0.0",
     "getenv": "0.7.0",
-    "nightwatch": "0.9.12",
-    "selenium-download": "^2.0.10",
+    "nightwatch": "0.9.21",
+    "selenium-download": "2.0.12",
     "superagent": "3.5.2"
   }
 }
