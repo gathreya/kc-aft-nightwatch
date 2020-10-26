@@ -7,18 +7,16 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node_modules/.bin/nightwatch --config ./config/browserstack.js",
-    "test-local": "node_modules/.bin/nightwatch --config ./config/local.js",
-    "postinstall": "node ./config/local.js"
+    "test": "echo 'use npm run cy:run instead'",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "config": "1.25.1",
-    "dotenv": "4.0.0",
-    "getenv": "0.7.0",
-    "nightwatch": "0.9.21",
-    "selenium-download": "2.0.12",
-    "superagent": "3.5.2"
+    "cypress": "5.4.0",
+    "dotenv": "8.2.0",
+    "getenv": "1.0.0",
+    "superagent": "6.1.0"
   }
 }
