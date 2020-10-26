@@ -29,3 +29,11 @@ Cypress.Commands.add('login', username => {
   cy.get('#Rice-UserName_control').type(username)
   cy.get('#Rice-LoginButton').click()
 })
+
+Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = () => {}) => {
+  return cy
+          .wrap($iframe)
+          .should(iframe => expect(iframe.contents().find('body')).to.exist)
+          .then(iframe => cy.wrap(iframe.contents().find('body')))
+          .within({}, callback)
+})
