@@ -44,6 +44,10 @@ Cypress.Commands.add('addSubAwardContact', (rolodexId, contactTypeCode) => {
     cy.get('#newSubAwardContact\\.contactTypeCode').select(contactTypeCode)
     cy.get('#subAward-contacts-table input.addButton').click()
 
-    cy.contains('Page is being processed by the server....').should('not.exist')
+    cy.awaitProcessing()
   })
+})
+
+Cypress.Commands.add('awaitProcessing', () => {
+  cy.contains('Page is being processed by the server....').should('not.exist')
 })
