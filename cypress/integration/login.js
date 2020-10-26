@@ -15,50 +15,13 @@ context('Subaward FDP', () => {
       cy.get('#document\\.subAwardList\\[0\\]\\.statusCode').select('1')
       cy.get('#document\\.subAwardList\\[0\\]\\.requisitionerUserName').type('cate')
       cy.get('#document\\.subAwardList\\[0\\]\\.organizationId').type('000002')
-      cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('186')
-      cy.get('#newSubAwardContact\\.contactTypeCode').select('22')
-      cy.get('#subAward-contacts-table input.addButton').click()
-      cy.get('#subAward-contacts-table').first('td').first('div').should('contain', 'Moyer, Kathy')
     })
     
-    cy.wait(1000)
-
-    cy.get('main iframe.uif-iFrame').iframe(() => {
-      cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('235')
-      cy.get('#newSubAwardContact\\.contactTypeCode').select('37')
-      cy.get('#subAward-contacts-table input.addButton').click()
-    })
-
-    cy.wait(1000)
-
-    cy.get('main iframe.uif-iFrame').iframe(() => {
-      cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('242')
-      cy.get('#newSubAwardContact\\.contactTypeCode').select('38')
-      cy.get('#subAward-contacts-table input.addButton').click()
-    })
-
-    cy.wait(1000)
-
-    cy.get('main iframe.uif-iFrame').iframe(() => {
-      cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('254')
-      cy.get('#newSubAwardContact\\.contactTypeCode').select('34')
-      cy.get('#subAward-contacts-table input.addButton').click()
-    })
-
-    cy.wait(1000)
-
-    cy.get('main iframe.uif-iFrame').iframe(() => {
-      cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('257')
-      cy.get('#newSubAwardContact\\.contactTypeCode').select('35')
-      cy.get('#subAward-contacts-table input.addButton').click()
-    })
-
-    cy.wait(1000)
-
-    cy.get('main iframe.uif-iFrame').iframe(() => {
-      cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('258')
-      cy.get('#newSubAwardContact\\.contactTypeCode').select('36')
-      cy.get('#subAward-contacts-table input.addButton').click()
-    })
+      cy.addSubAwardContact('186', '22')
+      cy.addSubAwardContact('235', '37')
+      cy.addSubAwardContact('242', '38')
+      cy.addSubAwardContact('254', '34')
+      cy.addSubAwardContact('257', '35')
+      cy.addSubAwardContact('258', '36')
   })
 })

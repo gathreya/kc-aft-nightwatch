@@ -37,3 +37,13 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
     .then(iframe => cy.wrap(iframe.contents().find('body')))
     .within({}, callback)
 })
+
+Cypress.Commands.add('addSubAwardContact', (rolodexId, contactTypeCode) => {
+  cy.get('main iframe.uif-iFrame').iframe(() => {
+    cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type(rolodexId)
+    cy.get('#newSubAwardContact\\.contactTypeCode').select(contactTypeCode)
+    cy.get('#subAward-contacts-table input.addButton').click()
+
+    cy.contains('Page is being processed by the server....').should('not.exist')
+  })
+})
