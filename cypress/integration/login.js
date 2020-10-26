@@ -20,6 +20,8 @@ context('Subaward FDP', () => {
       cy.get('#subAward-contacts-table input.addButton').click()
       cy.get('#subAward-contacts-table').first('td').first('div').should('contain', 'Moyer, Kathy')
     })
+    
+    cy.wait(1000)
 
     cy.get('main iframe.uif-iFrame').iframe(() => {
       cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('235')
@@ -27,11 +29,15 @@ context('Subaward FDP', () => {
       cy.get('#subAward-contacts-table input.addButton').click()
     })
 
+    cy.wait(1000)
+
     cy.get('main iframe.uif-iFrame').iframe(() => {
       cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('242')
       cy.get('#newSubAwardContact\\.contactTypeCode').select('38')
       cy.get('#subAward-contacts-table input.addButton').click()
     })
+
+    cy.wait(1000)
 
     cy.get('main iframe.uif-iFrame').iframe(() => {
       cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('254')
@@ -39,11 +45,15 @@ context('Subaward FDP', () => {
       cy.get('#subAward-contacts-table input.addButton').click()
     })
 
+    cy.wait(1000)
+
     cy.get('main iframe.uif-iFrame').iframe(() => {
       cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('257')
       cy.get('#newSubAwardContact\\.contactTypeCode').select('35')
       cy.get('#subAward-contacts-table input.addButton').click()
     })
+
+    cy.wait(1000)
 
     cy.get('main iframe.uif-iFrame').iframe(() => {
       cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type('258')
