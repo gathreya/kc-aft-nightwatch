@@ -24,10 +24,11 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('login', username => {
+Cypress.Commands.add('login', (username, password) => {
   cy.visit('/')
-  cy.get('#Rice-UserName_control').type(username)
-  cy.get('#Rice-LoginButton').click()
+  cy.get('[data-test="username"]').type(username)
+  cy.get('[data-test="password"]').type(password)
+  cy.get('[data-test="login"]').click()
 })
 
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = () => { }) => {
