@@ -41,6 +41,8 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
 
 Cypress.Commands.add('addSubAwardContact', (rolodexId, contactTypeCode) => {
   cy.get('main iframe.uif-iFrame').iframe(() => {
+    cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').should('be.empty')
+    
     cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type(rolodexId)
     cy.get('#newSubAwardContact\\.contactTypeCode').select(contactTypeCode)
     cy.get('#subAward-contacts-table input.addButton').click()

@@ -18,4 +18,27 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  on('before:browser:launch', (browser, options) => {
+    if (browser.family === 'chromium') {
+      options.preferences.default.profile = {
+        content_settings: {
+            exceptions: {
+                automatic_downloads: {
+                    '*': { setting: 1 }
+                }
+            }
+        },
+        default_content_settings: { popups: 0 }
+      }
+
+      options.preferences.default['download'] = 
+      { 
+          default_directory: '/tmp/',
+          prompt_for_download: false
+      }
+      
+      return options;
+    }
+  });
 }
