@@ -1,5 +1,8 @@
+import { v4 as uuid } from 'uuid'
+
 context('Subaward FDP', () => {
   beforeEach(() => {
+    cy.task('deleteFile', '/tmp/FDP_CR_2019v2_-_FINAL.pdf')
     cy.login('quickstart', 'password')
   })
 
@@ -79,5 +82,9 @@ context('Subaward FDP', () => {
       cy.get('select[name="subAwardPrintAgreement.selectedForms"]').select('RESBOOT19')
       cy.get('input[name="methodToCall.printTemplates"]').click()
     })
+
+    const s3Id = uuid()
+    cy.fileExists('/tmp/FDP_CR_2019v2_-_FINAL.pdf')
+    cy.saveToS3('/tmp/FDP_CR_2019v2_-_FINAL.pdf', `test/fdp/${s3Id}`)
   })
 })

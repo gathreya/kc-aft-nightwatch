@@ -42,7 +42,7 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
 Cypress.Commands.add('addSubAwardContact', (rolodexId, contactTypeCode) => {
   cy.get('main iframe.uif-iFrame').iframe(() => {
     cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').should('be.empty')
-    
+
     cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type(rolodexId)
     cy.get('#newSubAwardContact\\.contactTypeCode').select(contactTypeCode)
     cy.get('#subAward-contacts-table input.addButton').click()
@@ -53,4 +53,16 @@ Cypress.Commands.add('addSubAwardContact', (rolodexId, contactTypeCode) => {
 
 Cypress.Commands.add('awaitProcessing', () => {
   cy.contains('Page is being processed by the server....').should('not.exist')
+})
+
+Cypress.Commands.add('saveToS3', (sourcePath, destinationPath) =>
+  cy.task('saveToS3', { sourcePath, destinationPath })
+)
+
+Cypress.Commands.add('fileExists', path => {
+  cy.task('fileExists', path)
+})
+
+Cypress.Commands.add('deleteFile', (path, failOnNotExists) => {
+  cy.task('deleteFile', path, failOnNotExists)
 })
