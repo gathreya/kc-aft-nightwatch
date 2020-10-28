@@ -15,6 +15,7 @@ const fs = require('fs');
 const { saveToS3 } = require('../support/s3')
 const { flattenPdf } = require('../support/pdfService')
 const { checkFileExists, deleteFile } = require('../support/file')
+const { fromPath } = require('pdf2pic')
 
 /**
  * @type {Cypress.PluginConfig}
@@ -67,6 +68,17 @@ module.exports = (on, config) => {
     },
     flattenPdf({ sourcePath, destinationPath }) {
       return flattenPdf(sourcePath, destinationPath)
+    },
+    convertPdfToImages({ sourcePdf, destinationPath, destinationFilenamePrefix }) {
+      const baseOptions = {
+        width: 2550,
+        height: 3300,
+        density: 330,
+        savePath: destinationPath,
+        saveFilename: destinationFilenamePrefix
+      };
+
+      return fromPath(sourcePdf, baseOptions).bulk(-1);
     }
   })
 

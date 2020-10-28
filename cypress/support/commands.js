@@ -70,3 +70,7 @@ Cypress.Commands.add('deleteFile', (path, failOnNotExists) => {
 Cypress.Commands.add('flattenPdf', (sourcePath, destinationPath) =>
   cy.task('flattenPdf', { sourcePath, destinationPath })
 )
+
+Cypress.Commands.add('convertPdfToImages', (sourcePdf, destinationPath, destinationFilenamePrefix) =>
+  cy.task('convertPdfToImages', { sourcePdf, destinationPath, destinationFilenamePrefix })
+)
