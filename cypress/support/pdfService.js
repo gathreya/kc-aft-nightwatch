@@ -82,9 +82,26 @@ const flattenPdf = async (sourcePath, destinationPath) =>
           method: 'get',
           url: pdfStatus.actions[0].target.url,
           responseType: 'stream'
-        }).then(r => {
-          r.data.pipe(fs.createWriteStream(destinationPath))
-        }).then(() => true)
+        })
+          .then(r => new Promise((resolve, reject) => {
+            const writeStream = fs.createWriteStream('/tmp/flattening')
+            let error = null
+            r.data.on('error', err => {
+              error = err
+              reject(err)
+            })
+            r.data.pipe(writeStream)
+            writeStream.on('error', err => {
+              error = err
+              reject(err)
+            })
+            writeStream.on('close', () => {
+              if (!error) resolve(true)
+            })
+          }))
+          .then(() => fs.renameSync('/tmp/flattening', destinationPath))
+          .then(() => true)
+
       } else {
         console.log(pdfStatus)
         return Promise.reject(`Job returned ${pdfstatus.status}`)

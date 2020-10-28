@@ -1,17 +1,25 @@
 import { v4 as uuid } from 'uuid'
 
+const FDP_BASELINE = '/tmp/baseline.pdf'
+const FDP_BASELINE_S3 = 'test/fdp/baseline.pdf'
 const FDP_PDF = '/tmp/FDP_CR_2019v2_-_FINAL.pdf'
 const FDP_PDF_FLATTENED = '/tmp/FDP_CR_2019v2_-_FINAL_flattened.pdf'
 const FDP_IMAGES_OUTPUT_PATH = '/tmp/'
 const FDP_PREFIX = 'FDPv2'
+const FDP_BASELINE_PREFIX = 'Baseline-FDPv2'
+
+const getImagePath = (prefix, index) =>
+  `${FDP_IMAGES_OUTPUT_PATH}${prefix}.${index}.png`
 
 context('Subaward FDP', () => {
   beforeEach(() => {
     cy.task('deleteFile', FDP_PDF)
     cy.task('deleteFile', FDP_PDF_FLATTENED)
+    cy.task('deleteFile', FDP_BASELINE)
 
     for (let i = 1; i <= 10; i++) {
-      cy.task('deleteFile', FDP_IMAGES_OUTPUT_PATH + FDP_PREFIX + '.' + i + '.png')
+      cy.task('deleteFile', getImagePath(FDP_PREFIX, i))
+      cy.task('deleteFile', getImagePath(FDP_BASELINE_PREFIX, i))
     }
 
     cy.login('quickstart', 'password')
@@ -99,7 +107,17 @@ context('Subaward FDP', () => {
     cy.saveToS3(FDP_PDF, `test/fdp/${s3Id}`)
     cy.flattenPdf(`https://res-pdf-dev.s3-us-west-2.amazonaws.com/test/fdp/${s3Id}`, FDP_PDF_FLATTENED)
     cy.fileExists(FDP_PDF_FLATTENED)
-    cy.wait(1000)
-    cy.convertPdfToImages(FDP_PDF_FLATTENED, FDP_IMAGES_OUTPUT_PATH, FDP_PREFIX)
+
+    cy.getFromS3(FDP_BASELINE_S3, FDP_BASELINE).then(hasBaseline => {
+      if (hasBaseline) {
+        cy.convertPdfToImages(FDP_PDF_FLATTENED, FDP_IMAGES_OUTPUT_PATH, FDP_PREFIX)
+        cy.convertPdfToImages(FDP_BASELINE, FDP_IMAGES_OUTPUT_PATH, FDP_BASELINE_PREFIX)
+        for (let i = 1; i <= 10; i++) {
+          cy.imagesMatch(getImagePath(FDP_BASELINE_PREFIX, i), getImagePath(FDP_PREFIX, i))
+        }
+      } else {
+        cy.saveToS3(FDP_PDF_FLATTENED, FDP_BASELINE_S3)
+      }
+    })
   })
 })

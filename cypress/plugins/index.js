@@ -12,10 +12,11 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 const fs = require('fs');
-const { saveToS3 } = require('../support/s3')
+const { saveToS3, getFromS3 } = require('../support/s3')
 const { flattenPdf } = require('../support/pdfService')
 const { checkFileExists, deleteFile } = require('../support/file')
 const { fromPath } = require('pdf2pic')
+const { imagesMatch } = require('../support/image.js')
 
 /**
  * @type {Cypress.PluginConfig}
@@ -60,6 +61,9 @@ module.exports = (on, config) => {
     saveToS3({ sourcePath, destinationPath }) {
       return saveToS3(sourcePath, destinationPath)
     },
+    getFromS3({ sourcePath, destinationPath }) {
+      return getFromS3(sourcePath, destinationPath)
+    },
     fileExists(path) {
       return checkFileExists(path)
     },
@@ -79,6 +83,9 @@ module.exports = (on, config) => {
       };
 
       return fromPath(sourcePdf, baseOptions).bulk(-1);
+    },
+    imagesMatch({ image1, image2 }) {
+      return imagesMatch(image1, image2)
     }
   })
 

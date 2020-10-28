@@ -15,6 +15,30 @@ const saveToS3 = (sourcePath, destinationPath) => {
   }).promise()
 }
 
+const getFromS3 = (sourcePath, destinationPath) =>
+  new Promise((resolve, reject) => {
+    const destinationStream = fs.createWriteStream(destinationPath)
+    let error = null
+    const s3Stream = S3.getObject({
+      Bucket: 'res-pdf-dev',
+      Key: sourcePath
+    }).createReadStream()
+    s3Stream.on('error', err => {
+      error = err
+      resolve(false)
+    })
+    s3Stream.pipe(destinationStream)
+      .on('error', err => {
+        error = err
+        resolve(false)
+      })
+      .on('close', () => {
+        if (!error) resolve(true)
+      })
+  })
+
+
+
 module.exports = {
-  saveToS3
+  saveToS3, getFromS3
 }

@@ -59,6 +59,10 @@ Cypress.Commands.add('saveToS3', (sourcePath, destinationPath) =>
   cy.task('saveToS3', { sourcePath, destinationPath })
 )
 
+Cypress.Commands.add('getFromS3', (sourcePath, destinationPath) => {
+  cy.task('getFromS3', { sourcePath, destinationPath })
+})
+
 Cypress.Commands.add('fileExists', path => {
   cy.task('fileExists', path)
 })
@@ -73,4 +77,8 @@ Cypress.Commands.add('flattenPdf', (sourcePath, destinationPath) =>
 
 Cypress.Commands.add('convertPdfToImages', (sourcePdf, destinationPath, destinationFilenamePrefix) =>
   cy.task('convertPdfToImages', { sourcePdf, destinationPath, destinationFilenamePrefix })
+)
+
+Cypress.Commands.add('imagesMatch', (image1, image2) =>
+  cy.task('imagesMatch', { image1, image2 })
 )
