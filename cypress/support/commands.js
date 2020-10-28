@@ -66,3 +66,7 @@ Cypress.Commands.add('fileExists', path => {
 Cypress.Commands.add('deleteFile', (path, failOnNotExists) => {
   cy.task('deleteFile', path, failOnNotExists)
 })
+
+Cypress.Commands.add('flattenPdf', (sourcePath, destinationPath) =>
+  cy.task('flattenPdf', { sourcePath, destinationPath })
+)

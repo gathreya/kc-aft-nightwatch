@@ -13,21 +13,8 @@
 // the project's config changing)
 const fs = require('fs');
 const { saveToS3 } = require('../support/s3')
-
-const checkFileExists = (path, timeLeft = 30000) => {
-  const delay = 100
-  return new Promise((resolve, reject) => {
-    if (timeLeft < 0) {
-      return reject(new Error(`File ${path} not found`))
-    }
-    if (fs.existsSync(path)) {
-      return resolve('File exists')
-    }
-    setTimeout(() => {
-      checkFileExists(path, timeLeft - delay).then(resolve, reject)
-    }, delay)
-  })
-}
+const { flattenPdf } = require('../support/pdfService')
+const { checkFileExists, deleteFile } = require('../support/file')
 
 /**
  * @type {Cypress.PluginConfig}
@@ -42,8 +29,8 @@ module.exports = (on, config) => {
     throw dotenvConfig.error;
   }
 
-  const env = {...config.env, ...dotenvConfig.parsed};
-  const newConfig = {...config, env};
+  const env = { ...config.env, ...dotenvConfig.parsed };
+  const newConfig = { ...config, env };
 
   on('before:browser:launch', (browser, options) => {
     if (browser.family === 'chromium') {
@@ -76,12 +63,10 @@ module.exports = (on, config) => {
       return checkFileExists(path)
     },
     deleteFile(path, failOnNotExists = false) {
-      return new Promise((resolve, reject) => {
-        fs.unlink(path, err => {
-          if (err && failOnNotExists) reject(`Unable to delete ${path}`)
-          resolve(true)
-        })
-      })
+      return deleteFile(path, failOnNotExists)
+    },
+    flattenPdf({ sourcePath, destinationPath }) {
+      return flattenPdf(sourcePath, destinationPath)
     }
   })
 

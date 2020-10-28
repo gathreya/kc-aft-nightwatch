@@ -10,7 +10,8 @@ const saveToS3 = (sourcePath, destinationPath) => {
   return S3.putObject({
     Bucket: 'res-pdf-dev',
     Key: destinationPath,
-    Body: sourceStream
+    Body: sourceStream,
+    ACL: 'public-read'
   }).promise()
 }
 

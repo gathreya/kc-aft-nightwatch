@@ -1,8 +1,12 @@
 import { v4 as uuid } from 'uuid'
 
+const FDP_PDF = '/tmp/FDP_CR_2019v2_-_FINAL.pdf'
+const FDP_PDF_FLATTENED = '/tmp/FDP_CR_2019v2_-_FINAL_flattened.pdf'
+
 context('Subaward FDP', () => {
   beforeEach(() => {
-    cy.task('deleteFile', '/tmp/FDP_CR_2019v2_-_FINAL.pdf')
+    cy.task('deleteFile', FDP_PDF)
+    cy.task('deleteFile', FDP_PDF_FLATTENED)
     cy.login('quickstart', 'password')
   })
 
@@ -84,7 +88,8 @@ context('Subaward FDP', () => {
     })
 
     const s3Id = uuid()
-    cy.fileExists('/tmp/FDP_CR_2019v2_-_FINAL.pdf')
-    cy.saveToS3('/tmp/FDP_CR_2019v2_-_FINAL.pdf', `test/fdp/${s3Id}`)
+    cy.fileExists(FDP_PDF)
+    cy.saveToS3(FDP_PDF, `test/fdp/${s3Id}`)
+    cy.flattenPdf(`https://res-pdf-dev.s3-us-west-2.amazonaws.com/test/fdp/${s3Id}`, FDP_PDF_FLATTENED)
   })
 })
