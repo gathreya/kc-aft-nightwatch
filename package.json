@@ -18,6 +18,7 @@
     "cypress": "5.5.0",
     "dotenv": "8.2.0",
     "getenv": "1.0.0",
+    "pdf2pic": "2.1.2",
     "superagent": "6.1.0",
     "uuid": "8.3.1"
   }

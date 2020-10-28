@@ -36,6 +36,15 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
+  const dotenvConfig = require('dotenv').config()
+
+  if (dotenvConfig.error) {
+    throw dotenvConfig.error;
+  }
+
+  const env = {...config.env, ...dotenvConfig.parsed};
+  const newConfig = {...config, env};
+
   on('before:browser:launch', (browser, options) => {
     if (browser.family === 'chromium') {
       options.preferences.default.profile = {
@@ -75,4 +84,6 @@ module.exports = (on, config) => {
       })
     }
   })
+
+  return newConfig
 }
