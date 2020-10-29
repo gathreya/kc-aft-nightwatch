@@ -7,7 +7,6 @@ const FDP_PDF_FLATTENED = '/tmp/FDP_CR_2019v2_-_FINAL_flattened.pdf'
 const FDP_IMAGES_OUTPUT_PATH = '/tmp/'
 const FDP_PREFIX = 'FDPv2'
 const FDP_BASELINE_PREFIX = 'Baseline-FDPv2'
-const FDP_DIFF_PREFIX = 'Diff-FDPv2'
 
 const getImagePath = (prefix, index) =>
   `${FDP_IMAGES_OUTPUT_PATH}${prefix}.${index}.png`
@@ -21,7 +20,6 @@ context('Subaward FDP', () => {
     for (let i = 1; i <= 10; i++) {
       cy.task('deleteFile', getImagePath(FDP_PREFIX, i))
       cy.task('deleteFile', getImagePath(FDP_BASELINE_PREFIX, i))
-      cy.task('deleteFile', getImagePath(FDP_DIFF_PREFIX, i))
     }
 
     cy.login('quickstart', 'password')
@@ -77,9 +75,9 @@ context('Subaward FDP', () => {
       cy.get('input[name="document.subAwardList[0].subAwardTemplateInfo[0].rAndD"]').check('true')
       cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].finalStatementDueCd"]').select('PPED')
       cy.get('input[name="document.subAwardList[0].subAwardTemplateInfo[0].includesCostSharing"]').check('false')
-      //cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].invoiceOrPaymentContact"]').select('Prime Administrative Contact')
-      //cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].finalStmtOfCostscontact"]').select('Prime Authorized Official')
-      //cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].changeRequestsContact"]').select('Prime Financial Contact')
+      cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].invoiceOrPaymentContact"]').select('Prime Administrative Contact')
+      cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].finalStmtOfCostscontact"]').select('Prime Authorized Official')
+      cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].changeRequestsContact"]').select('Prime Financial Contact')
       cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].terminationContact"]').select('Principal Investigator')
       cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].noCostExtensionContact"]').select('Prime Administrative Contact')
       cy.get('select[name="document.subAwardList[0].subAwardTemplateInfo[0].carryForwardRequestsSentTo"]').select('Prime Authorized Official')
@@ -116,15 +114,8 @@ context('Subaward FDP', () => {
         cy.convertPdfToImages(FDP_BASELINE, FDP_IMAGES_OUTPUT_PATH, FDP_BASELINE_PREFIX)
 
         for (let i = 1; i <= 10; i++) {
-          const diffImage = getImagePath(FDP_DIFF_PREFIX, i)
-
-          cy.imagesMatch(getImagePath(FDP_BASELINE_PREFIX, i), getImagePath(FDP_PREFIX, i), diffImage).then(percentDiff => {
-            if (percentDiff !== true) {
-              // Inject image to html to force a capture?
-              console.log('test')
-            }
-
-            expect(percentDiff, `Page ${i} didn't matched the test baseline. Diff: ${diffImage}`).to.be.true
+          cy.imagesMatch(getImagePath(FDP_BASELINE_PREFIX, i), getImagePath(FDP_PREFIX, i)).then(percentDiff => {
+            assert.equal(percentDiff, 0, `Page ${i} difference ${percentDiff}, Screenshot: ${FDP_PREFIX}.${i}.png`)
           })
         }
       } else {

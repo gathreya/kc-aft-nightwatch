@@ -1,17 +1,15 @@
 const gm = require('gm')
 
-const imagesMatch = (image1, image2, diffImage) =>
+const imagesMatch = (image1, image2) =>
   new Promise((resolve, reject) => {
     const options = {
-      file: diffImage,
+      file: `./cypress/screenshots/${image2.substring(image2.lastIndexOf('/'))}`,
       tolerance: 0
     }
 
-    gm.compare(image1, image2, options, (err, isEqual, percentDiff) => {
+    gm.compare(image1, image2, options, (err, _, percentDiff) => {
       if (err) reject(err)
-      console.log(`Diff of ${image1} and ${image2}: ${percentDiff}`)
-      if (isEqual) resolve(true)
-      else resolve(percentDiff)
+      resolve(percentDiff)
     })
   })
 

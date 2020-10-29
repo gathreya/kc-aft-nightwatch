@@ -41,6 +41,7 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, callback = 
 
 Cypress.Commands.add('addSubAwardContact', (rolodexId, contactTypeCode) => {
   cy.get('main iframe.uif-iFrame').iframe(() => {
+    cy.get('#tab-Closeout-div').should('exist')
     cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').should('be.empty')
 
     cy.get('#newSubAwardContact\\.rolodex\\.rolodexId').type(rolodexId)
@@ -79,6 +80,6 @@ Cypress.Commands.add('convertPdfToImages', (sourcePdf, destinationPath, destinat
   cy.task('convertPdfToImages', { sourcePdf, destinationPath, destinationFilenamePrefix })
 )
 
-Cypress.Commands.add('imagesMatch', (image1, image2, diffImage) =>
-  cy.task('imagesMatch', { image1, image2, diffImage })
+Cypress.Commands.add('imagesMatch', (image1, image2) =>
+  cy.task('imagesMatch', { image1, image2 })
 )
