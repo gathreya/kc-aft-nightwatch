@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo 'use npm run cy:run instead'",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run --browser chrome --headless"
   },
   "author": "",
   "license": "ISC",
