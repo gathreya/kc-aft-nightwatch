@@ -79,6 +79,6 @@ Cypress.Commands.add('convertPdfToImages', (sourcePdf, destinationPath, destinat
   cy.task('convertPdfToImages', { sourcePdf, destinationPath, destinationFilenamePrefix })
 )
 
-Cypress.Commands.add('imagesMatch', (image1, image2) =>
-  cy.task('imagesMatch', { image1, image2 })
+Cypress.Commands.add('imagesMatch', (image1, image2, diffImage) =>
+  cy.task('imagesMatch', { image1, image2, diffImage })
 )

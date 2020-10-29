@@ -84,8 +84,8 @@ module.exports = (on, config) => {
 
       return fromPath(sourcePdf, baseOptions).bulk(-1);
     },
-    imagesMatch({ image1, image2 }) {
-      return imagesMatch(image1, image2)
+    imagesMatch({ image1, image2, diffImage }) {
+      return imagesMatch(image1, image2, diffImage)
     }
   })
 

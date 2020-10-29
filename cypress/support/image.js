@@ -1,12 +1,17 @@
 const gm = require('gm')
 
-const imagesMatch = (image1, image2) =>
+const imagesMatch = (image1, image2, diffImage) =>
   new Promise((resolve, reject) => {
-    gm.compare(image1, image2, 0, (err, isEqual, percentDiff) => {
+    const options = {
+      file: diffImage,
+      tolerance: 0
+    }
+
+    gm.compare(image1, image2, options, (err, isEqual, percentDiff) => {
       if (err) reject(err)
       console.log(`Diff of ${image1} and ${image2}: ${percentDiff}`)
       if (isEqual) resolve(true)
-      else reject(percentDiff)
+      else resolve(percentDiff)
     })
   })
 
