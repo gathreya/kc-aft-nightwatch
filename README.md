@@ -28,3 +28,6 @@ npm run test-local
 ```
 npm run test-local -- --test tests/proposalDevelopment.js --testcase "PD test"
 ```
+
+## GraphicsMagick installation on MacOS
+brew install gs graphicsmagick
