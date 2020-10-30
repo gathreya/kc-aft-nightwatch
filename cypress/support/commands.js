@@ -25,7 +25,6 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('login', (username, password) => {
-  cy.visit('/')
   cy.get('[data-test="username"]').type(username)
   cy.get('[data-test="password"]').type(password)
   cy.get('[data-test="login"]').click()
@@ -62,6 +61,10 @@ Cypress.Commands.add('saveToS3', (sourcePath, destinationPath) =>
 
 Cypress.Commands.add('getFromS3', (sourcePath, destinationPath) => {
   cy.task('getFromS3', { sourcePath, destinationPath })
+})
+
+Cypress.Commands.add('deleteFromS3', path => {
+  cy.task('deleteFromS3', path)
 })
 
 Cypress.Commands.add('fileExists', path => {
