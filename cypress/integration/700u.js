@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 
-const SEVEN_HUNDRED_U_PDF = '/tmp/700u.pdf'
+const SEVEN_HUNDRED_U_PDF = 'cypress/downloads/700u.pdf'
 const SEVEN_HUNDRED_U_IMAGES_OUTPUT_PATH = '/tmp/'
 const SEVEN_HUNDRED_U_PREFIX = '700u'
 const SEVEN_HUNDRED_U_BASELINE = '/tmp/700u_baseline.pdf'
