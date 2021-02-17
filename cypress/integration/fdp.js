@@ -1,12 +1,12 @@
 import { v4 as uuid } from 'uuid'
 
-const FDP_BASELINE = '/tmp/baseline_2020.pdf'
-const FDP_BASELINE_S3 = 'test/fdp/baseline_2020.pdf'
-const FDP_PDF = 'cypress/downloads/FDP_CR_2020.pdf'
+const FDP_PDF = 'cypress/downloads/FDP.+pdf$'
 const FDP_PDF_FLATTENED = 'cypress/downloads/FDP_CR_2020_flattened.pdf'
 const FDP_IMAGES_OUTPUT_PATH = '/tmp/'
 const FDP_PREFIX = 'FDPv2'
 const FDP_BASELINE_PREFIX = 'Baseline-FDPv2'
+
+const getBaselinePath = (form, isS3) => `${isS3 ? 'test/fdp' : '/tmp'}/baseline_${form}.pdf`
 
 const getImagePath = (prefix, index) =>
   `${FDP_IMAGES_OUTPUT_PATH}${prefix}.${index}.png`
@@ -15,7 +15,7 @@ context('Subaward FDP', () => {
   beforeEach(() => {
     cy.task('deleteFile', FDP_PDF)
     cy.task('deleteFile', FDP_PDF_FLATTENED)
-    cy.task('deleteFile', FDP_BASELINE)
+    cy.task('deleteFile', getBaselinePath('*', false))
 
     for (let i = 1; i <= 10; i++) {
       cy.task('deleteFile', getImagePath(FDP_PREFIX, i))
@@ -122,24 +122,32 @@ context('Subaward FDP', () => {
       cy.awaitProcessing()
     })
 
+    let formOption
+
     cy.get('main iframe.uif-iFrame').iframe(() => {
       cy.get('#tab-Print-imageToggle').click()
       cy.contains('Cost Reimbursement')
-      cy.get('select[name="subAwardPrintAgreement.selectedForms"]').select('RESBOOT20')
+      cy.get('option').contains('FDP Cost Reimbursement').then(option => {
+        formOption = option.attr('value')
+        cy.get('select[name="subAwardPrintAgreement.selectedForms"]').select(formOption)
+      })
       cy.get('input[name="methodToCall.printTemplates"]').click()
     })
 
     const s3Id = uuid()
-    cy.fileExists(FDP_PDF)
-    cy.saveToS3(FDP_PDF, `test/fdp/${s3Id}`)
+    cy.task('fileExists', FDP_PDF).then(downloadFile => {
+      cy.saveToS3(downloadFile, `test/fdp/${s3Id}`)
+    })
     cy.flattenPdf(`https://res-pdf-dev.s3-us-west-2.amazonaws.com/test/fdp/${s3Id}`, FDP_PDF_FLATTENED)
     cy.fileExists(FDP_PDF_FLATTENED)
     cy.deleteFromS3(`test/fdp/${s3Id}`)
 
-    cy.getFromS3(FDP_BASELINE_S3, FDP_BASELINE).then(hasBaseline => {
+    const fdpBaseline = getBaselinePath(formOption, false)
+    const fdpBaselineS3 = getBaselinePath(formOption, true)
+    cy.getFromS3(fdpBaselineS3, fdpBaseline).then(hasBaseline => {
       if (hasBaseline) {
         cy.convertPdfToImages(FDP_PDF_FLATTENED, FDP_IMAGES_OUTPUT_PATH, FDP_PREFIX)
-        cy.convertPdfToImages(FDP_BASELINE, FDP_IMAGES_OUTPUT_PATH, FDP_BASELINE_PREFIX)
+        cy.convertPdfToImages(fdpBaseline, FDP_IMAGES_OUTPUT_PATH, FDP_BASELINE_PREFIX)
 
         for (let i = 1; i <= 10; i++) {
           cy.imagesMatch(getImagePath(FDP_BASELINE_PREFIX, i), getImagePath(FDP_PREFIX, i)).then(percentDiff => {
@@ -147,7 +155,7 @@ context('Subaward FDP', () => {
           })
         }
       } else {
-        cy.saveToS3(FDP_PDF_FLATTENED, FDP_BASELINE_S3)
+        cy.saveToS3(FDP_PDF_FLATTENED, fdpBaselineS3)
       }
     })
   })

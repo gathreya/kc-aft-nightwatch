@@ -1,4 +1,12 @@
-const fs = require('fs');
+const fs = require('fs')
+
+const findMatching = path => {
+  const pathParts = path.split('/')
+  const filePattern = pathParts.pop()
+  const dir = pathParts.join('/')
+  const files = fs.readdirSync(dir)
+  return files.filter(f => f.match(filePattern)).map(f => `${dir}/${f}`)
+}
 
 const checkFileExists = (path, timeLeft = 30000) => {
   const delay = 100
@@ -6,9 +14,12 @@ const checkFileExists = (path, timeLeft = 30000) => {
     if (timeLeft < 0) {
       return reject(new Error(`File ${path} not found`))
     }
-    if (fs.existsSync(path)) {
-      return resolve('File exists')
+
+    const matchingFiles = findMatching(path)
+    if (matchingFiles.length) {
+      return resolve(matchingFiles[0])
     }
+
     setTimeout(() => {
       checkFileExists(path, timeLeft - delay).then(resolve, reject)
     }, delay)
@@ -16,12 +27,15 @@ const checkFileExists = (path, timeLeft = 30000) => {
 }
 
 const deleteFile = (path, failOnNotExists = false) => {
-  return new Promise((resolve, reject) => {
-    fs.unlink(path, err => {
-      if (err && failOnNotExists) reject(`Unable to delete ${path}`)
-      resolve(true)
+  const files = findMatching(path)
+  return Promise.all(files.map(file => 
+    new Promise((resolve, reject) => {
+      fs.unlink(file, err => {
+        if (err && failOnNotExists) reject(`Unable to delete ${file}`)
+        resolve(true)
+      })
     })
-  })
+  ))
 }
 
 module.exports = {
